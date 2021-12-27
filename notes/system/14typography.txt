@@ -1,0 +1,90 @@
+https://mui.com/system/typography/
+
+Typography
+control alignment, wrapping, weight, and more
+
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+<Box sx={{ fontStyle: 'normal' }}>…
+<Box sx={{ fontStyle: 'italic' }}>…
+<Box sx={{ fontStyle: 'oblique' }}>…
+Font family
+
+Default
+Monospace
+
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+export default function FontFamily() {
+  return (
+    <Typography component="div">
+      <Box sx={{ fontFamily: 'default', m: 1 }}>Default</Box>
+      <Box sx={{ fontFamily: 'Monospace', fontSize: 'h6.fontSize', m: 1 }}>
+        Monospace
+      </Box>
+    </Typography>
+  );
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+<Box sx={{ fontFamily: 'default' }}>…
+<Box sx={{ fontFamily: 'Monospace' }}>…
+Letter spacing
+
+Letter Spacing 6px.
+Letter Spacing 10px.
+
+
+
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+export default function LetterSpacing() {
+  return (
+    <Typography component="div">
+      <Box sx={{ letterSpacing: 6, m: 1 }}>Letter Spacing 6px.</Box>
+      <Box sx={{ letterSpacing: 10, m: 1 }}>Letter Spacing 10px.</Box>
+    </Typography>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+<Box sx={{ letterSpacing: 6 }}>…
+<Box sx={{ letterSpacing: 10 }}>…
+Line height
+
+Normal height.
+line-height: 2
+
+
+
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+export default function LineHeight() {
+  return (
+    <Typography component="div">
+      <Box sx={{ lineHeight: 'normal', m: 1 }}>Normal height.</Box>
+      <Box sx={{ lineHeight: 2, m: 1 }}>line-height: 2</Box>
+    </Typography>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+<Box sx={{ lineHeight: 'normal' }}>…
+<Box sx={{ lineHeight: 10 }}>…
+API
+import { typography } from '@mui/system';
+Import name	Prop	CSS property	Theme key
+typography	typography	font-family, font-weight, font-size, line-height, letter-spacing, text-transform	typography
+fontFamily	fontFamily	font-family	typography
+fontSize	fontSize	font-size	typography
+fontStyle	fontStyle	font-style	typography
+fontWeight	fontWeight	font-weight	typography
+letterSpacing	letterSpacing	letter-spacing	none
+lineHeight	lineHeight	line-height	none
+textAlign	textAlign	text-align	none

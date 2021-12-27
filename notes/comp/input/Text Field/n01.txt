@@ -1,0 +1,2027 @@
+Text Field
+
+Text fields allow users to enter text into a UI. They typically appear in forms and dialogs.
+
+Basic TextField
+The TextField wrapper component is a complete form control including a label, input, and help text. It comes with three variants: outlined (default), filled, and standard.
+
+
+Outlined
+
+Filled
+
+Standard
+
+Note: The standard variant of the TextField is no longer documented in the Material Design guidelines (here's why), but MUI will continue to support it.
+
+Form props
+Standard form attributes are supported e.g. required, disabled, type, etc. as well as a helperText which is used to give context about a field's input, such as how the input will be used.
+
+
+Required *
+
+Disabled
+
+Password
+
+Read Only
+
+Number
+
+Search field
+
+Helper text
+
+Some important text
+Required *
+
+Disabled
+
+Password
+
+Read Only
+
+Number
+
+Search field
+
+Helper text
+
+Some important text
+Required *
+
+Disabled
+
+Password
+
+Read Only
+
+Number
+
+Search field
+
+Helper text
+
+Some important text
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function FormPropsTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Hello World"
+        />
+        <TextField
+          disabled
+          id="outlined-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+        />
+        <TextField
+          id="outlined-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+        />
+        <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField id="outlined-search" label="Search field" type="search" />
+        <TextField
+          id="outlined-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="filled-required"
+          label="Required"
+          defaultValue="Hello World"
+          variant="filled"
+        />
+        <TextField
+          disabled
+          id="filled-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+          variant="filled"
+        />
+        <TextField
+          id="filled-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          variant="filled"
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+        />
+        <TextField
+          id="filled-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+        />
+        <TextField
+          id="filled-search"
+          label="Search field"
+          type="search"
+          variant="filled"
+        />
+        <TextField
+          id="filled-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+          variant="filled"
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="standard-required"
+          label="Required"
+          defaultValue="Hello World"
+          variant="standard"
+        />
+        <TextField
+          disabled
+          id="standard-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+          variant="standard"
+        />
+        <TextField
+          id="standard-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          variant="standard"
+        />
+        <TextField
+          id="standard-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="standard"
+        />
+        <TextField
+          id="standard-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
+        />
+        <TextField
+          id="standard-search"
+          label="Search field"
+          type="search"
+          variant="standard"
+        />
+        <TextField
+          id="standard-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+          variant="standard"
+        />
+      </div>
+    </Box>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+Validation
+The error prop toggles the error state. The helperText prop can then be used to provide feedback to the user about the error.
+
+
+Error
+
+Error
+
+Incorrect entry.
+Error
+
+Error
+
+Incorrect entry.
+Error
+
+Error
+
+Incorrect entry.
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function ValidationTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          error
+          id="outlined-error"
+          label="Error"
+          defaultValue="Hello World"
+        />
+        <TextField
+          error
+          id="outlined-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+        />
+      </div>
+      <div>
+        <TextField
+          error
+          id="filled-error"
+          label="Error"
+          defaultValue="Hello World"
+          variant="filled"
+        />
+        <TextField
+          error
+          id="filled-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+          variant="filled"
+        />
+      </div>
+      <div>
+        <TextField
+          error
+          id="standard-error"
+          label="Error"
+          defaultValue="Hello World"
+          variant="standard"
+        />
+        <TextField
+          error
+          id="standard-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+          variant="standard"
+        />
+      </div>
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Multiline
+The multiline prop transforms the text field into a <textarea> element. Unless the rows prop is set, the height of the text field dynamically matches its content (using TextareaAutosize). You can use the minRows and maxRows props to bound it.
+
+
+Multiline
+
+
+Multiline Placeholder
+
+Multiline
+
+
+Multiline
+
+Multiline Placeholder
+
+Multiline
+
+Multiline
+
+Multiline Placeholder
+
+Multiline
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function MultilineTextFields() {
+  const [value, setValue] = React.useState('Controlled');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          value={value}
+          onChange={handleChange}
+        />
+        <TextField
+          id="outlined-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+        />
+        <TextField
+          id="outlined-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+        />
+      </div>
+      <div>
+        <TextField
+          id="filled-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          value={value}
+          onChange={handleChange}
+          variant="filled"
+        />
+        <TextField
+          id="filled-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+          variant="filled"
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="filled"
+        />
+      </div>
+      <div>
+        <TextField
+          id="standard-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          value={value}
+          onChange={handleChange}
+          variant="standard"
+        />
+        <TextField
+          id="standard-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+          variant="standard"
+        />
+        <TextField
+          id="standard-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="standard"
+        />
+      </div>
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Select
+The select prop makes the text field use the Select component internally.
+
+
+Select
+€
+
+Please select your currency
+Native select
+
+
+Please select your currency
+Select
+€
+
+Please select your currency
+Native select
+
+Please select your currency
+Select
+€
+
+Please select your currency
+Native select
+
+Please select your currency
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+
+const currencies = [
+  {
+    value: 'USD',
+    label: '$',
+  },
+  {
+    value: 'EUR',
+    label: '€',
+  },
+  {
+    value: 'BTC',
+    label: '฿',
+  },
+  {
+    value: 'JPY',
+    label: '¥',
+  },
+];
+
+export default function SelectTextFields() {
+  const [currency, setCurrency] = React.useState('EUR');
+
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
+  };
+
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Select"
+          value={currency}
+          onChange={handleChange}
+          helperText="Please select your currency"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="outlined-select-currency-native"
+          select
+          label="Native select"
+          value={currency}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          helperText="Please select your currency"
+        >
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+      </div>
+      <div>
+        <TextField
+          id="filled-select-currency"
+          select
+          label="Select"
+          value={currency}
+          onChange={handleChange}
+          helperText="Please select your currency"
+          variant="filled"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="filled-select-currency-native"
+          select
+          label="Native select"
+          value={currency}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          helperText="Please select your currency"
+          variant="filled"
+        >
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+      </div>
+      <div>
+        <TextField
+          id="standard-select-currency"
+          select
+          label="Select"
+          value={currency}
+          onChange={handleChange}
+          helperText="Please select your currency"
+          variant="standard"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="standard-select-currency-native"
+          select
+          label="Native select"
+          value={currency}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          helperText="Please select your currency"
+          variant="standard"
+        >
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+      </div>
+    </Box>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+Icons
+There are multiple ways to display an icon with a text field.
+
+
+With a start adornment
+​
+
+TextField
+​
+
+With sx
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+
+export default function InputWithIcon() {
+  return (
+    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+      <FormControl variant="standard">
+        <InputLabel htmlFor="input-with-icon-adornment">
+          With a start adornment
+        </InputLabel>
+        <Input
+          id="input-with-icon-adornment"
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+      <TextField
+        id="input-with-icon-textfield"
+        label="TextField"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          ),
+        }}
+        variant="standard"
+      />
+      <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+        <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+        <TextField id="input-with-sx" label="With sx" variant="standard" />
+      </Box>
+    </Box>
+  );
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+Input Adornments
+The main way is with an InputAdornment. This can be used to add a prefix, a suffix, or an action to an input. For instance, you can use an icon button to hide or reveal the password.
+
+
+With normal TextField
+kg
+
+
+kg
+​
+Weight
+Password
+
+
+
+Amount
+$
+
+With normal TextField
+kg
+
+
+kg
+Weight
+Password
+
+
+Amount
+$
+
+With normal TextField
+kg
+
+
+kg
+Weight
+Password
+
+
+Amount
+$
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+export default function InputAdornments() {
+  const [values, setValues] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div>
+        <TextField
+          label="With normal TextField"
+          id="outlined-start-adornment"
+          sx={{ m: 1, width: '25ch' }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">kg</InputAdornment>,
+          }}
+        />
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <OutlinedInput
+            id="outlined-adornment-weight"
+            value={values.weight}
+            onChange={handleChange('weight')}
+            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+            aria-describedby="outlined-weight-helper-text"
+            inputProps={{
+              'aria-label': 'weight',
+            }}
+          />
+          <FormHelperText id="outlined-weight-helper-text">Weight</FormHelperText>
+        </FormControl>
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl>
+        <FormControl fullWidth sx={{ m: 1 }}>
+          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            value={values.amount}
+            onChange={handleChange('amount')}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Amount"
+          />
+        </FormControl>
+      </div>
+      <div>
+        <TextField
+          label="With normal TextField"
+          id="filled-start-adornment"
+          sx={{ m: 1, width: '25ch' }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">kg</InputAdornment>,
+          }}
+          variant="filled"
+        />
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
+          <FilledInput
+            id="filled-adornment-weight"
+            value={values.weight}
+            onChange={handleChange('weight')}
+            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+            aria-describedby="filled-weight-helper-text"
+            inputProps={{
+              'aria-label': 'weight',
+            }}
+          />
+          <FormHelperText id="filled-weight-helper-text">Weight</FormHelperText>
+        </FormControl>
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
+          <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+          <FilledInput
+            id="filled-adornment-password"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+          <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
+          <FilledInput
+            id="filled-adornment-amount"
+            value={values.amount}
+            onChange={handleChange('amount')}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          />
+        </FormControl>
+      </div>
+      <div>
+        <TextField
+          label="With normal TextField"
+          id="standard-start-adornment"
+          sx={{ m: 1, width: '25ch' }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">kg</InputAdornment>,
+          }}
+          variant="standard"
+        />
+        <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }}>
+          <Input
+            id="standard-adornment-weight"
+            value={values.weight}
+            onChange={handleChange('weight')}
+            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+            aria-describedby="standard-weight-helper-text"
+            inputProps={{
+              'aria-label': 'weight',
+            }}
+          />
+          <FormHelperText id="standard-weight-helper-text">Weight</FormHelperText>
+        </FormControl>
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+          <Input
+            id="standard-adornment-password"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+          <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
+          <Input
+            id="standard-adornment-amount"
+            value={values.amount}
+            onChange={handleChange('amount')}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          />
+        </FormControl>
+      </div>
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Sizes
+Fancy smaller inputs? Use the size prop.
+
+
+Size
+
+Size
+
+Size
+
+Size
+
+Size
+
+Size
+
+
+The filled variant input height can be further reduced by rendering the label outside of it.
+
+
+
+
+
+
+
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+
+export default function TextFieldHiddenLabel() {
+  return (
+    <Stack
+      component="form"
+      sx={{
+        width: '25ch',
+      }}
+      spacing={2}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        hiddenLabel
+        id="filled-hidden-label-small"
+        defaultValue="Small"
+        variant="filled"
+        size="small"
+      />
+      <TextField
+        hiddenLabel
+        id="filled-hidden-label-normal"
+        defaultValue="Normal"
+        variant="filled"
+      />
+    </Stack>
+  );
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+Margin
+The margin prop can be used to alter the vertical spacing of the text field. Using none (default) doesn't apply margins to the FormControl whereas dense and normal do.
+
+
+margin="none"
+
+margin="dense"
+
+margin="normal"
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+function RedBar() {
+  return (
+    <Box
+      sx={{
+        height: 20,
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'light'
+            ? 'rgba(255, 0, 0, 0.1)'
+            : 'rgb(255 132 132 / 25%)',
+      }}
+    />
+  );
+}
+
+export default function LayoutTextFields() {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        '& .MuiTextField-root': { width: '25ch' },
+      }}
+    >
+      <RedBar />
+      <TextField label={'margin="none"'} id="margin-none" />
+      <RedBar />
+      <TextField label={'margin="dense"'} id="margin-dense" margin="dense" />
+      <RedBar />
+      <TextField label={'margin="normal"'} id="margin-normal" margin="normal" />
+      <RedBar />
+    </Box>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+Full width
+fullWidth can be used to make the input take up the full width of its container.
+
+
+fullWidth
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function FullWidthTextField() {
+  return (
+    <Box
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="fullWidth" id="fullWidth" />
+    </Box>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+Uncontrolled vs. Controlled
+The component can be controlled or uncontrolled.
+
+
+Name
+
+Uncontrolled
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function StateTextFields() {
+  const [name, setName] = React.useState('Cat in the Hat');
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        id="outlined-name"
+        label="Name"
+        value={name}
+        onChange={handleChange}
+      />
+      <TextField
+        id="outlined-uncontrolled"
+        label="Uncontrolled"
+        defaultValue="foo"
+      />
+    </Box>
+  );
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+Components
+TextField is composed of smaller components ( FormControl, Input, FilledInput, InputLabel, OutlinedInput, and FormHelperText ) that you can leverage directly to significantly customize your form inputs.
+
+You might also have noticed that some native HTML input properties are missing from the TextField component. This is on purpose. The component takes care of the most used properties. Then, it's up to the user to use the underlying component shown in the following demo. Still, you can use inputProps (and InputProps, InputLabelProps properties) if you want to avoid some boilerplate.
+
+
+Name
+
+Name
+
+Some important helper text
+Name
+
+Disabled
+Name
+
+Error
+Name
+
+Name
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import FilledInput from '@mui/material/FilledInput';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+
+export default function ComposedTextField() {
+  const [name, setName] = React.useState('Composed TextField');
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1 },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <FormControl variant="standard">
+        <InputLabel htmlFor="component-simple">Name</InputLabel>
+        <Input id="component-simple" value={name} onChange={handleChange} />
+      </FormControl>
+      <FormControl variant="standard">
+        <InputLabel htmlFor="component-helper">Name</InputLabel>
+        <Input
+          id="component-helper"
+          value={name}
+          onChange={handleChange}
+          aria-describedby="component-helper-text"
+        />
+        <FormHelperText id="component-helper-text">
+          Some important helper text
+        </FormHelperText>
+      </FormControl>
+      <FormControl disabled variant="standard">
+        <InputLabel htmlFor="component-disabled">Name</InputLabel>
+        <Input id="component-disabled" value={name} onChange={handleChange} />
+        <FormHelperText>Disabled</FormHelperText>
+      </FormControl>
+      <FormControl error variant="standard">
+        <InputLabel htmlFor="component-error">Name</InputLabel>
+        <Input
+          id="component-error"
+          value={name}
+          onChange={handleChange}
+          aria-describedby="component-error-text"
+        />
+        <FormHelperText id="component-error-text">Error</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor="component-outlined">Name</InputLabel>
+        <OutlinedInput
+          id="component-outlined"
+          value={name}
+          onChange={handleChange}
+          label="Name"
+        />
+      </FormControl>
+      <FormControl variant="filled">
+        <InputLabel htmlFor="component-filled">Name</InputLabel>
+        <FilledInput id="component-filled" value={name} onChange={handleChange} />
+      </FormControl>
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Inputs
+
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+
+const ariaLabel = { 'aria-label': 'description' };
+
+export default function Inputs() {
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1 },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <Input defaultValue="Hello world" inputProps={ariaLabel} />
+      <Input placeholder="Placeholder" inputProps={ariaLabel} />
+      <Input disabled defaultValue="Disabled" inputProps={ariaLabel} />
+      <Input defaultValue="Error" error inputProps={ariaLabel} />
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Color
+The color prop changes the highlight color of the text field when focused.
+
+
+Outlined secondary
+
+Filled success
+
+Standard warning
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function ColorTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField label="Outlined secondary" color="secondary" focused />
+      <TextField label="Filled success" variant="filled" color="success" focused />
+      <TextField
+        label="Standard warning"
+        variant="standard"
+        color="warning"
+        focused
+      />
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Customization
+Here are some examples of customizing the component. You can learn more about this in the overrides documentation page.
+
+
+Bootstrap
+
+Reddit
+
+Custom CSS
+
+CSS validation style *
+
+
+
+
+import * as React from 'react';
+import { alpha, styled } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+
+const CssTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: 'green',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'green',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'red',
+    },
+    '&:hover fieldset': {
+      borderColor: 'yellow',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'green',
+    },
+  },
+});
+
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  'label + &': {
+    marginTop: theme.spacing(3),
+  },
+  '& .MuiInputBase-input': {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    width: 'auto',
+    padding: '10px 12px',
+    transition: theme.transitions.create([
+      'border-color',
+      'background-color',
+      'box-shadow',
+    ]),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+      borderColor: theme.palette.primary.main,
+    },
+  },
+}));
+
+const RedditTextField = styled((props) => (
+  <TextField InputProps={{ disableUnderline: true }} {...props} />
+))(({ theme }) => ({
+  '& .MuiFilledInput-root': {
+    border: '1px solid #e2e2e1',
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+    transition: theme.transitions.create([
+      'border-color',
+      'background-color',
+      'box-shadow',
+    ]),
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '&.Mui-focused': {
+      backgroundColor: 'transparent',
+      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
+      borderColor: theme.palette.primary.main,
+    },
+  },
+}));
+
+const ValidationTextField = styled(TextField)({
+  '& input:valid + fieldset': {
+    borderColor: 'green',
+    borderWidth: 2,
+  },
+  '& input:invalid + fieldset': {
+    borderColor: 'red',
+    borderWidth: 2,
+  },
+  '& input:valid:focus + fieldset': {
+    borderLeftWidth: 6,
+    padding: '4px !important', // override inline-style
+  },
+});
+
+export default function CustomizedInputs() {
+  return (
+    <Box
+      component="form"
+      noValidate
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { sm: '1fr 1fr' },
+        gap: 2,
+      }}
+    >
+      <FormControl variant="standard">
+        <InputLabel shrink htmlFor="bootstrap-input">
+          Bootstrap
+        </InputLabel>
+        <BootstrapInput defaultValue="react-bootstrap" id="bootstrap-input" />
+      </FormControl>
+      <RedditTextField
+        label="Reddit"
+        defaultValue="react-reddit"
+        id="reddit-input"
+        variant="filled"
+        style={{ marginTop: 11 }}
+      />
+      <CssTextField label="Custom CSS" id="custom-css-outlined-input" />
+      <ValidationTextField
+        label="CSS validation style"
+        required
+        variant="outlined"
+        defaultValue="Success"
+        id="validation-outlined-input"
+      />
+    </Box>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+Customization does not stop at CSS. You can use composition to build custom components and give your app a unique feel. Below is an example using the InputBase component, inspired by Google Maps.
+
+
+
+
+
+
+
+
+
+import * as React from 'react';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
+
+export default function CustomizedInputBase() {
+  return (
+    <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+    >
+      <IconButton sx={{ p: '10px' }} aria-label="menu">
+        <MenuIcon />
+      </IconButton>
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search Google Maps"
+        inputProps={{ 'aria-label': 'search google maps' }}
+      />
+      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+        <SearchIcon />
+      </IconButton>
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
+        <DirectionsIcon />
+      </IconButton>
+    </Paper>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+🎨 If you are looking for inspiration, you can check MUI Treasury's customization examples.
+
+useFormControl
+For advanced customization use cases, a useFormControl() hook is exposed. This hook returns the context value of the parent FormControl component.
+
+API
+
+import { useFormControl } from '@mui/material/FormControl';
+Returns
+
+value (object):
+
+value.adornedStart (bool): Indicate whether the child Input or Select component has a start adornment.
+value.setAdornedStart (func): Setter function for adornedStart state value.
+value.color (string): The theme color is being used, inherited from FormControl color prop .
+value.disabled (bool): Indicate whether the component is being displayed in a disabled state, inherited from FormControl disabled prop.
+value.error (bool): Indicate whether the component is being displayed in an error state, inherited from FormControl error prop
+value.filled (bool): Indicate whether input is filled
+value.focused (bool): Indicate whether the component and its children are being displayed in a focused state
+value.fullWidth (bool): Indicate whether the component is taking up the full width of its container, inherited from FormControl fullWidth prop
+value.hiddenLabel (bool): Indicate whether the label is being hidden, inherited from FormControl hiddenLabel prop
+value.required (bool): Indicate whether the label is indicating that the input is required input, inherited from the FormControl required prop
+value.size (string): The size of the component, inherited from the FormControl size prop
+value.variant (string): The variant is being used by the FormControl component and its children, inherited from FormControl variant prop
+value.onBlur (func): Should be called when the input is blurred
+value.onFocus (func): Should be called when the input is focused
+value.onEmpty (func): Should be called when the input is emptied
+value.onFilled (func): Should be called when the input is filled
+Example
+
+
+​
+Helper text
+
+
+
+import * as React from 'react';
+import FormControl, { useFormControl } from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Box from '@mui/material/Box';
+import FormHelperText from '@mui/material/FormHelperText';
+
+function MyFormHelperText() {
+  const { focused } = useFormControl() || {};
+
+  const helperText = React.useMemo(() => {
+    if (focused) {
+      return 'This field is being focused';
+    }
+
+    return 'Helper text';
+  }, [focused]);
+
+  return <FormHelperText>{helperText}</FormHelperText>;
+}
+
+export default function UseFormControl() {
+  return (
+    <Box component="form" noValidate autoComplete="off">
+      <FormControl sx={{ width: '25ch' }}>
+        <OutlinedInput placeholder="Please enter text" />
+        <MyFormHelperText />
+      </FormControl>
+    </Box>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+Limitations
+Shrink
+The input label "shrink" state isn't always correct. The input label is supposed to shrink as soon as the input is displaying something. In some circumstances, we can't determine the "shrink" state (number input, datetime input, Stripe input). You might notice an overlap.
+
+shrink
+
+To workaround the issue, you can force the "shrink" state of the label.
+
+<TextField InputLabelProps={{ shrink: true }} />
+or
+
+<InputLabel shrink>Count</InputLabel>
+Floating label
+The floating label is absolutely positioned. It won't impact the layout of the page. Make sure that the input is larger than the label to display correctly.
+
+type="number"
+Inputs of type="number" have potential usability issues:
+
+Allowing certain non-numeric characters ('e', '+', '-', '.') and silently discarding others
+The functionality of scrolling to increment/decrement the number can cause accidental and hard-to-notice changes
+and more - see this article by the GOV.UK Design System team for a more detailed explanation.
+
+For number validation, one viable alternative is to use the default input type="text" with the pattern attribute, for example:
+
+<TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} />
+In the future, we might provide a number input component.
+
+Helper text
+The helper text prop affects the height of the text field. If two text fields are placed side by side, one with a helper text and one without, they will have different heights. For example:
+
+
+Name
+
+Please enter your name
+Name
+
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function HelperTextMisaligned() {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        '& > :not(style)': { m: 1 },
+      }}
+    >
+      <TextField
+        helperText="Please enter your name"
+        id="demo-helper-text-misaligned"
+        label="Name"
+      />
+      <TextField id="demo-helper-text-misaligned-no-helper" label="Name" />
+    </Box>
+  );
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+This can be fixed by passing a space character to the helperText prop:
+
+
+Name
+
+Please enter your name
+Name
+
+​
+
+
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function HelperTextAligned() {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        '& > :not(style)': { m: 1 },
+      }}
+    >
+      <TextField
+        helperText="Please enter your name"
+        id="demo-helper-text-aligned"
+        label="Name"
+      />
+      <TextField
+        helperText=" "
+        id="demo-helper-text-aligned-no-helper"
+        label="Name"
+      />
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Integration with 3rd party input libraries
+You can use third-party libraries to format an input. You have to provide a custom implementation of the <input> element with the inputComponent property.
+
+The following demo uses the react-imask and react-number-format libraries. The same concept could be applied to e.g. react-stripe-element.
+
+
+react-imask
+
+react-number-format
+
+
+
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { IMaskInput } from 'react-imask';
+import NumberFormat from 'react-number-format';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props;
+  return (
+    <IMaskInput
+      {...other}
+      mask="(#00) 000-0000"
+      definitions={{
+        '#': /[1-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+TextMaskCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+      prefix="$"
+    />
+  );
+});
+
+NumberFormatCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default function FormattedInputs() {
+  const [values, setValues] = React.useState({
+    textmask: '(100) 000-0000',
+    numberformat: '1320',
+  });
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  return (
+    <Box
+      sx={{
+        '& > :not(style)': {
+          m: 1,
+        },
+      }}
+    >
+      <FormControl variant="standard">
+        <InputLabel htmlFor="formatted-text-mask-input">react-imask</InputLabel>
+        <Input
+          value={values.textmask}
+          onChange={handleChange}
+          name="textmask"
+          id="formatted-text-mask-input"
+          inputComponent={TextMaskCustom}
+        />
+      </FormControl>
+      <TextField
+        label="react-number-format"
+        value={values.numberformat}
+        onChange={handleChange}
+        name="numberformat"
+        id="formatted-numberformat-input"
+        InputProps={{
+          inputComponent: NumberFormatCustom,
+        }}
+        variant="standard"
+      />
+    </Box>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+The provided input component should expose a ref with a value that implements the following interface:
+
+interface InputElement {
+  focus(): void;
+  value?: string;
+}
+const MyInputComponent = React.forwardRef((props, ref) => {
+  const { component: Component, ...other } = props;
+
+  // implement `InputElement` interface
+  React.useImperativeHandle(ref, () => ({
+    focus: () => {
+      // logic to focus the rendered component from 3rd party belongs here
+    },
+    // hiding the value e.g. react-stripe-elements
+  }));
+
+  // `Component` will be your `SomeThirdPartyComponent` from below
+  return <Component {...other} />;
+});
+
+// usage
+<TextField
+  InputProps={{
+    inputComponent: MyInputComponent,
+    inputProps: {
+      component: SomeThirdPartyComponent,
+    },
+  }}
+/>;
+Accessibility
+In order for the text field to be accessible, the input should be linked to the label and the helper text. The underlying DOM nodes should have this structure:
+
+<div class="form-control">
+  <label for="my-input">Email address</label>
+  <input id="my-input" aria-describedby="my-helper-text" />
+  <span id="my-helper-text">We'll never share your email.</span>
+</div>
+If you are using the TextField component, you just have to provide a unique id unless you're using the TextField only client side. Until the UI is hydrated TextField without an explicit id will not have associated labels.
+If you are composing the component:
+<FormControl>
+  <InputLabel htmlFor="my-input">Email address</InputLabel>
+  <Input id="my-input" aria-describedby="my-helper-text" />
+  <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+</FormControl>
+Complementary projects
+For more advanced use cases, you might be able to take advantage of:
+
+react-hook-form: React hook for form validation.
+formik-material-ui: Bindings for using MUI with formik.
+redux-form-material-ui: Bindings for using MUI with Redux Form.
+mui-rff: Bindings for using MUI with React Final Form.
+Unstyled
+For advanced customization scenarios, you can use the unstyled primitives.
+
+The basic building blocks are the InputUnstyled component and the useInput hook.
+
+Unstyled component
+The InputUnstyled component wraps the native input or textarea element. You can, optionally, provide a custom component to be rendered instead.
+
+
+
+
+
+
+import * as React from 'react';
+import InputUnstyled from '@mui/base/InputUnstyled';
+import { styled } from '@mui/system';
+
+const blue = {
+  200: '#80BFFF',
+  400: '#3399FF',
+};
+
+const grey = {
+  50: '#F3F6F9',
+  100: '#E7EBF0',
+  200: '#E0E3E7',
+  300: '#CDD2D7',
+  400: '#B2BAC2',
+  500: '#A0AAB4',
+  600: '#6F7E8C',
+  700: '#3E5060',
+  800: '#2D3843',
+  900: '#1A2027',
+};
+
+const StyledInputElement = styled('input')(
+  ({ theme }) => `
+  width: 320px;
+  font-size: 0.875rem;
+  font-family: IBM Plex Sans, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+  background: ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
+  border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
+  border-radius: 8px;
+  padding: 12px 12px;
+  transition: all 150ms ease;
+
+  &:hover {
+    background: ${theme.palette.mode === 'dark' ? null : grey[100]};
+    border-color: ${theme.palette.mode === 'dark' ? grey[600] : grey[400]};
+  }
+
+  &:focus {
+    outline: 2px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
+  }
+`,
+);
+
+const CustomInput = React.forwardRef(function CustomInput(props, ref) {
+  return (
+    <InputUnstyled components={{ Input: StyledInputElement }} {...props} ref={ref} />
+  );
+});
+
+export default function UnstyledInput() {
+  return <CustomInput aria-label="Demo input" placeholder="Type something..." />;
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Hook
+The useInput hook is the headless version of the InputUnstyled component. Use it for even greater control over the rendered output.
+
+
+
+
+
+
+import * as React from 'react';
+import { useInput } from '@mui/base';
+import { styled } from '@mui/system';
+
+const blue = {
+  200: '#80BFFF',
+  400: '#3399FF',
+};
+
+const grey = {
+  50: '#F3F6F9',
+  100: '#E7EBF0',
+  200: '#E0E3E7',
+  300: '#CDD2D7',
+  400: '#B2BAC2',
+  500: '#A0AAB4',
+  600: '#6F7E8C',
+  700: '#3E5060',
+  800: '#2D3843',
+  900: '#1A2027',
+};
+
+const StyledInputElement = styled('input')(
+  ({ theme }) => `
+  width: 320px;
+  font-size: 0.875rem;
+  font-family: IBM Plex Sans, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+  background: ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
+  border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
+  border-radius: 8px;
+  padding: 12px 12px;
+  transition: all 150ms ease;
+
+  &:hover {
+    background: ${theme.palette.mode === 'dark' ? null : grey[100]};
+    border-color: ${theme.palette.mode === 'dark' ? grey[600] : grey[400]};
+  }
+
+  &:focus {
+    outline: 2px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
+  }
+`,
+);
+
+const CustomInput = React.forwardRef(function CustomInput(props, ref) {
+  const { getRootProps, getInputProps } = useInput(props, ref);
+
+  return (
+    <div {...getRootProps()}>
+      <StyledInputElement {...props} {...getInputProps()} />
+    </div>
+  );
+});
+
+export default function UseInput() {
+  return <CustomInput aria-label="Demo input" placeholder="Type something..." />;
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+API
+<FilledInput />
+<FormControl />
+<FormControlUnstyled />
+<FormHelperText />
+<Input />
+<InputAdornment />
+<InputBase />
+<InputLabel />
+<InputUnstyled />
+<OutlinedInput />
+<TextField />
+Switch
+Was this page helpful?
+
+Transfer List
+CONTENTS
+
+Basic TextField
+Form props
+Validation
+Multiline
+Select
+Icons
+Input Adornments
+Sizes
+Margin
+Full width
+Uncontrolled vs. Controlled
+Components
+Inputs
+Color
+Customization
+useFormControl
+Limitations
+Shrink
+Floating label
+type="number"
+Helper text
+Integration with 3rd party input libraries
+Accessibility
+Complementary projects
+Unstyled
+Unstyled component
+Hook
+API
+styled() - MUI
