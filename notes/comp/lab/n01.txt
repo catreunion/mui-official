@@ -1,0 +1,400 @@
+https://mui.com/components/date-picker/
+
+Date Picker
+Date pickers let the user select a date.
+ads via Carbon
+Grow your app revenue with quality demand from Meta's global advertisers
+ads via Carbon
+
+Date pickers let the user select a date. Date pickers are displayed with:
+
+Dialogs on mobile
+Text field dropdowns on desktop
+Feedback
+Bundle size
+Material Design
+Figma
+Adobe
+Sketch
+Requirements
+This component relies on the date management library of your choice. It supports date-fns, luxon, dayjs, moment and any other library via a public dateAdapter interface.
+
+Please install any of these libraries and set up the right date engine by wrapping your root (or the highest level you wish the pickers to be available) with LocalizationProvider:
+
+// or @mui/lab/Adapter{Dayjs,Luxon,Moment} or any valid date-io adapter
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
+function App() {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>...</LocalizationProvider>
+  );
+}
+
+Basic usage
+The date picker is rendered as a modal dialog on mobile, and a textbox with a popup on desktop.
+
+Static mode
+It's possible to render any date picker without the modal/popover and text field. This can be helpful when building custom popover/modal containers.
+
+Responsiveness
+The date picker component is designed and optimized for the device it runs on.
+
+The MobileDatePicker component works best for touch devices and small screens.
+The DesktopDatePicker component works best for mouse devices and large screens.
+By default, the DatePicker component renders the desktop version if the media query @media (pointer: fine) matches. This can be customized with the desktopModeMediaQuery prop.
+
+import * as React from 'react';
+
+
+Form props
+The date picker component can be disabled or read-only.
+
+
+
+Localization
+Use LocalizationProvider to change the date-engine locale that is used to render the date picker. Here is an example of changing the locale for the date-fns adapter:
+
+
+Views playground
+It's possible to combine year, month, and date selection views. Views will appear in the order they're included in the views array.
+
+Landscape orientation
+For ease of use, the date picker will automatically change the layout between portrait and landscape by subscription to the window.orientation change. You can force a specific layout using the orientation prop.
+
+Sub-components
+Some lower-level sub-components (CalendarPicker, MonthPicker, and YearPicker) are also exported. These are rendered without a wrapper or outer logic (masked input, date values parsing and validation, etc.).
+
+import * as React from 'react';
+
+
+Custom input component
+You can customize the rendering of the input with the renderInput prop. Make sure to spread ref and inputProps correctly to the custom input component.
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DesktopDatePicker from '@mui/lab/DatePicker';
+
+export default function CustomInput() {
+  const [value, setValue] = React.useState(new Date());
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DesktopDatePicker
+        label="Custom input"
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        renderInput={({ inputRef, inputProps, InputProps }) => (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <input ref={inputRef} {...inputProps} />
+            {InputProps?.endAdornment}
+          </Box>
+        )}
+      />
+    </LocalizationProvider>
+  );
+}
+Squarespace - Squarespace has website templates, designer fonts, and color palettes to fit your personal style.
+ad by Carbon
+Customized day rendering
+The displayed days are customizable with the renderDay function prop. You can take advantage of the PickersDay component.
+
+
+December
+2021
+
+
+
+S
+M
+T
+W
+T
+F
+S
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+
+
+
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
+import PickersDay from '@mui/lab/PickersDay';
+import endOfWeek from 'date-fns/endOfWeek';
+import isSameDay from 'date-fns/isSameDay';
+import isWithinInterval from 'date-fns/isWithinInterval';
+import startOfWeek from 'date-fns/startOfWeek';
+
+const CustomPickersDay = styled(PickersDay, {
+  shouldForwardProp: (prop) =>
+    prop !== 'dayIsBetween' && prop !== 'isFirstDay' && prop !== 'isLastDay',
+})(({ theme, dayIsBetween, isFirstDay, isLastDay }) => ({
+  ...(dayIsBetween && {
+    borderRadius: 0,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  }),
+  ...(isFirstDay && {
+    borderTopLeftRadius: '50%',
+    borderBottomLeftRadius: '50%',
+  }),
+  ...(isLastDay && {
+    borderTopRightRadius: '50%',
+    borderBottomRightRadius: '50%',
+  }),
+}));
+
+export default function CustomDay() {
+  const [value, setValue] = React.useState(new Date());
+
+  const renderWeekPickerDay = (date, selectedDates, pickersDayProps) => {
+    if (!value) {
+      return <PickersDay {...pickersDayProps} />;
+    }
+
+    const start = startOfWeek(value);
+    const end = endOfWeek(value);
+
+    const dayIsBetween = isWithinInterval(date, { start, end });
+    const isFirstDay = isSameDay(date, start);
+    const isLastDay = isSameDay(date, end);
+
+    return (
+      <CustomPickersDay
+        {...pickersDayProps}
+        disableMargin
+        dayIsBetween={dayIsBetween}
+        isFirstDay={isFirstDay}
+        isLastDay={isLastDay}
+      />
+    );
+  };
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <StaticDatePicker
+        displayStaticWrapperAs="desktop"
+        label="Week picker"
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        renderDay={renderWeekPickerDay}
+        renderInput={(params) => <TextField {...params} />}
+        inputFormat="'Week of' MMM d"
+      />
+    </LocalizationProvider>
+  );
+}
+Squarespace - With Squarespace, you have access to a world of beautiful website templates.
+ad by Carbon
+Dynamic data
+Sometimes it may be necessary to display additional info right in the calendar. Here's an example of prefetching and displaying server-side data using the onMonthChange, loading, and renderDay props.
+
+
+
+
+​
+
+
+
+import * as React from 'react';
+import Badge from '@mui/material/Badge';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import PickersDay from '@mui/lab/PickersDay';
+import DatePicker from '@mui/lab/DatePicker';
+import CalendarPickerSkeleton from '@mui/lab/CalendarPickerSkeleton';
+import getDaysInMonth from 'date-fns/getDaysInMonth';
+
+function getRandomNumber(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+/**
+ * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
+ * ⚠️ No IE11 support
+ */
+function fakeFetch(date, { signal }) {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      const daysInMonth = getDaysInMonth(date);
+      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
+
+      resolve({ daysToHighlight });
+    }, 500);
+
+    signal.onabort = () => {
+      clearTimeout(timeout);
+      reject(new DOMException('aborted', 'AbortError'));
+    };
+  });
+}
+
+const initialValue = new Date();
+
+export default function ServerRequestDatePicker() {
+  const requestAbortController = React.useRef(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+  const [value, setValue] = React.useState(initialValue);
+
+  const fetchHighlightedDays = (date) => {
+    const controller = new AbortController();
+    fakeFetch(date, {
+      signal: controller.signal,
+    })
+      .then(({ daysToHighlight }) => {
+        setHighlightedDays(daysToHighlight);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        // ignore the error if it's caused by `controller.abort`
+        if (error.name !== 'AbortError') {
+          throw error;
+        }
+      });
+
+    requestAbortController.current = controller;
+  };
+
+  React.useEffect(() => {
+    fetchHighlightedDays(initialValue);
+    // abort request on unmount
+    return () => requestAbortController.current?.abort();
+  }, []);
+
+  const handleMonthChange = (date) => {
+    if (requestAbortController.current) {
+      // make sure that you are aborting useless requests
+      // because it is possible to switch between months pretty quickly
+      requestAbortController.current.abort();
+    }
+
+    setIsLoading(true);
+    setHighlightedDays([]);
+    fetchHighlightedDays(date);
+  };
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        value={value}
+        loading={isLoading}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        onMonthChange={handleMonthChange}
+        renderInput={(params) => <TextField {...params} />}
+        renderLoading={() => <CalendarPickerSkeleton />}
+        renderDay={(day, _value, DayComponentProps) => {
+          const isSelected =
+            !DayComponentProps.outsideCurrentMonth &&
+            highlightedDays.indexOf(day.getDate()) > 0;
+
+          return (
+            <Badge
+              key={day.toString()}
+              overlap="circular"
+              badgeContent={isSelected ? '🌚' : undefined}
+            >
+              <PickersDay {...DayComponentProps} />
+            </Badge>
+          );
+        }}
+      />
+    </LocalizationProvider>
+  );
+}
+Shutterstock - Download 1️⃣0️⃣ FREE images from Shutterstock’s world-class library with a free 1-month trial!🎉🎉🎉
+ad by Carbon
+Helper text
+You can show a helper text with the date format accepted.
+
+
+Helper text example
+
+
+
+mm/dd/yyyy
+
+
+
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+
+export default function HelperText() {
+  const [value, setValue] = React.useState(null);
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        label="Helper text example"
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        renderInput={(params) => (
+          <TextField {...params} helperText={params?.inputProps?.placeholder} />
+        )}
+      />
+    </LocalizationProvider>
+  );
+}
+Squarespace - Squarespace is everything you need to sell anything.
+ad by Carbon
+API
+<CalendarPicker />
+<CalendarPickerSkeleton />
+<DatePicker />
+<DesktopDatePicker />
+<MobileDatePicker />
+<MonthPicker />
+<PickersDay />
+<StaticDatePicker />
+<YearPicker />
+Introduction

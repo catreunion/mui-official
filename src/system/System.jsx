@@ -1,5 +1,5 @@
 import React from "react"
-import Flexbox from "./06flexbox/Flexbox"
+// import Flexbox from "./06flexbox/Flexbox"
 // import Grid from "./07grid/Grid"
 // import Palette from "./08palette/Palette"
 // import Typography from "./14typography/Typography"
@@ -8,7 +8,7 @@ import Flexbox from "./06flexbox/Flexbox"
 function System() {
   return (
     <>
-      <Flexbox />
+      {/* <Flexbox /> */}
       {/* <Grid /> */}
       {/* <Palette /> */}
       {/* <Typography /> */}
