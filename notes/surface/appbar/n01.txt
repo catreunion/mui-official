@@ -1,0 +1,144 @@
+https://mui.com/components/app-bar/
+
+Bottom App Bar
+
+
+Fixed placement
+When you render the app bar position fixed, the dimension of the element doesn't impact the rest of the page. This can cause some part of your content to be invisible, behind the app bar. Here are 3 possible solutions:
+
+You can use position="sticky" instead of fixed. ⚠️ sticky is not supported by IE11.
+You can render a second <Toolbar /> component:
+function App() {
+  return (
+    <React.Fragment>
+      <AppBar position="fixed">
+        <Toolbar>{/* content */}</Toolbar>
+      </AppBar>
+      <Toolbar />
+    </React.Fragment>
+  );
+}
+You can use theme.mixins.toolbar CSS:
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
+function App() {
+  return (
+    <React.Fragment>
+      <AppBar position="fixed">
+        <Toolbar>{/* content */}</Toolbar>
+      </AppBar>
+      <Offset />
+    </React.Fragment>
+  );
+}
+
+Scrolling
+You can use the useScrollTrigger() hook to respond to user scroll actions.
+
+Hide App Bar
+The app bar hides on scroll down to leave more space for reading.
+
+
+
+
+
+
+Elevate App Bar
+The app bar elevates on scroll to communicate that the user is not at the top of the page.
+
+
+
+
+
+
+Back to top
+A floating action buttons appears on scroll to make it easy to get back to the top of the page.
+
+
+
+
+
+
+Shutterstock - 🥳Download 10 FREE images from Shutterstock’s world-class library with a free 1-month trial! 🙌
+ad by Carbon
+useScrollTrigger([options]) => trigger
+Arguments
+options (object [optional]):
+
+options.disableHysteresis (bool [optional]): Defaults to false. Disable the hysteresis. Ignore the scroll direction when determining the trigger value.
+options.target (Node [optional]): Defaults to window.
+options.threshold (number [optional]): Defaults to 100. Change the trigger value when the vertical scroll strictly crosses this threshold (exclusive).
+Returns
+trigger: Does the scroll position match the criteria?
+
+Examples
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+
+function HideOnScroll(props) {
+  const trigger = useScrollTrigger();
+  return (
+    <Slide in={!trigger}>
+      <div>Hello</div>
+    </Slide>
+  );
+}
+Enable color on dark
+Following the Material Design guidelines, the color prop has no effect on the appearance of the app bar in dark mode. You can override this behavior by setting the enableColorOnDark prop to true.
+
+
+
+enableColorOnDark
+
+default
+
+
+
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Stack from '@mui/material/Stack';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+function appBarLabel(label) {
+  return (
+    <Toolbar>
+      <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+        <MenuIcon />
+      </IconButton>
+      <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+        {label}
+      </Typography>
+    </Toolbar>
+  );
+}
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#1976d2',
+    },
+  },
+});
+
+export default function EnableColorOnDarkAppBar() {
+  return (
+    <Stack spacing={2} sx={{ flexGrow: 1 }}>
+      <ThemeProvider theme={darkTheme}>
+        <AppBar position="static" color="primary" enableColorOnDark>
+          {appBarLabel('enableColorOnDark')}
+        </AppBar>
+        <AppBar position="static" color="primary">
+          {appBarLabel('default')}
+        </AppBar>
+      </ThemeProvider>
+    </Stack>
+  );
+}
+API
+<AppBar />
+<Menu />
+<Toolbar />

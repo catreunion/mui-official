@@ -1,0 +1,56 @@
+Basic sorting
+
+
+Custom comparator
+The grid handles sorting and applies different comparators in columns according to their types. The component handles sorting natively for the following types:
+
+string
+number
+date
+dateTime
+
+
+Sort order
+By default, the sort order cycles between these three different modes:
+
+const sortingOrder = ['asc', 'desc', null];
+In practice, when you click a column that is not sorted, it will sort ascending (asc). The next click will make it sort descending (desc). Another click will remove the sort (null), reverting to the order that the data was provided in. This behavior can be overwritten by setting the sortingOrder prop.
+
+In the example below columns are only sortable in descending or ascending order.
+
+
+import * as React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { useDemoData } from '@mui/x-data-grid-generator';
+
+export default function OrderSortingGrid() {
+  const { data } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 10,
+    maxColumns: 6,
+  });
+
+  const [sortModel, setSortModel] = React.useState([
+    {
+      field: 'commodity',
+      sort: 'asc',
+    },
+  ]);
+
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid
+        sortingOrder={['desc', 'asc']}
+        sortModel={sortModel}
+        onSortModelChange={(model) => setSortModel(model)}
+        {...data}
+      />
+    </div>
+  );
+}
+
+Disable sorting
+By default, all columns are sortable. This can be revoked using the sortable prop of the GridColDef interface:
+
+const columns: GridColDef = [{ field: 'name', sortable: false }];
+

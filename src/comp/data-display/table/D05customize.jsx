@@ -1,12 +1,12 @@
-import * as React from "react"
-import { styled } from "@mui/material/styles"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import React from "react"
 import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
+import Table from "@mui/material/Table"
+import TableHead from "@mui/material/TableHead"
+import TableBody from "@mui/material/TableBody"
+import TableRow from "@mui/material/TableRow"
+import { styled } from "@mui/material/styles"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,19 +34,20 @@ function createData(name, calories, fat, carbs, protein) {
 
 const rows = [createData("Frozen yoghurt", 159, 6.0, 24, 4.0), createData("Ice cream sandwich", 237, 9.0, 37, 4.3), createData("Eclair", 262, 16.0, 24, 6.0), createData("Cupcake", 305, 3.7, 67, 4.3), createData("Gingerbread", 356, 16.0, 49, 3.9)]
 
-export default function CustomizedTables() {
+function D05customize() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>{"Dessert (100g serving)"}</StyledTableCell>
+            <StyledTableCell align="right">{"Calories"}</StyledTableCell>
+            <StyledTableCell align="right">{"Fat (g)"}</StyledTableCell>
+            <StyledTableCell align="right">{"Carbs (g)"}</StyledTableCell>
+            <StyledTableCell align="right">{"Protein (g)"}</StyledTableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {rows.map(row => (
             <StyledTableRow key={row.name}>
@@ -64,3 +65,5 @@ export default function CustomizedTables() {
     </TableContainer>
   )
 }
+
+export default D05customize

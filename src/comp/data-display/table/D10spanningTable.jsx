@@ -32,7 +32,7 @@ const invoiceSubtotal = subtotal(rows)
 const invoiceTaxes = TAX_RATE * invoiceSubtotal
 const invoiceTotal = invoiceTaxes + invoiceSubtotal
 
-export default function SpanningTable() {
+function D10spanningTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="spanning table">
@@ -43,6 +43,7 @@ export default function SpanningTable() {
             </TableCell>
             <TableCell align="right">Price</TableCell>
           </TableRow>
+
           <TableRow>
             <TableCell>Desc</TableCell>
             <TableCell align="right">Qty.</TableCell>
@@ -50,6 +51,7 @@ export default function SpanningTable() {
             <TableCell align="right">Sum</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {rows.map(row => (
             <TableRow key={row.desc}>
@@ -65,11 +67,13 @@ export default function SpanningTable() {
             <TableCell colSpan={2}>Subtotal</TableCell>
             <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
           </TableRow>
+
           <TableRow>
             <TableCell>Tax</TableCell>
             <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
             <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
           </TableRow>
+
           <TableRow>
             <TableCell colSpan={2}>Total</TableCell>
             <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
@@ -79,3 +83,5 @@ export default function SpanningTable() {
     </TableContainer>
   )
 }
+
+export default D10spanningTable

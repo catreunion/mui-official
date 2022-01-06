@@ -1,26 +1,32 @@
-import * as React from "react"
-import { DataGrid } from "@mui/x-data-grid"
+import React from "react"
+import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid"
 
+// configure the columns
+// mapped to rows through the field property
+// const columns: GridColDef[] = [
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "id", headerName: "ID", width: 60 },
+  { field: "lastName", headerName: "Last Name", width: 130 },
+  { field: "firstName", headerName: "First Name", width: 130 },
   {
     field: "age",
     headerName: "Age",
     type: "number",
-    width: 90
+    width: 60
   },
   {
     field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
+    headerName: "Full Name",
+    description: "description",
     sortable: false,
-    width: 160,
+    width: 260,
     valueGetter: params => `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""}`
   }
 ]
 
+// provide rows
+// Rows are key-value pair objects, mapping column names as keys with their values
+// const rows: GridRowsProp = [
 const rows = [
   { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
   { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
@@ -35,8 +41,8 @@ const rows = [
 
 function D02dataTable() {
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection />
+    <div style={{ width: "100%", height: 400 }}>
+      <DataGrid columns={columns} rows={rows} pageSize={5} checkboxSelection />
     </div>
   )
 }

@@ -1,0 +1,50 @@
+view a subset of the records based on a criteria
+
+Per column
+
+You can disable the filter on a column by setting the filterable property of the GridColDef to false;
+
+const columns = [{ field: 'image', filterable: false }];
+
+Customize the filters
+The grid provides different ways to customize the filter panel. This section provides examples on how to make the most common modifications.
+
+Change the input component
+
+The value used by the operator to look for has to be entered by the user. On most column types, a text field is used. However, a custom component can be rendered instead.
+
+In this demo, the Rating column reuses the numeric filter and the same rating component is used to the enter the value of the filter.
+
+
+Extend filter operators
+
+When defining a custom column type, the added operators are the same from the type that was extended.
+
+In this demo, a price column type (used by Total is USD) is defined extending the number column type. Instead of adding all numeric operators, only the operators < and > are kept. Furthermore, the "$" prefix is added to the input component with the InputComponentProps prop.
+
+
+
+Create a custom operator
+
+If reusing the native filter operators is not enough, creating a custom operator is an option. A custom operator is defined creating a GridFilterOperator object. This object has to be added to the filterOperators attribute of the GridColDef.
+
+The most important part of an operator is the getApplyFilterFn function. It's called with the GridFilterItem object and the GridColDef object. This function must return another function that is called on every value of the column. The returned function determines if the cell value satisfies the condition of the operator.
+
+{
+  label: 'From',
+  value: 'from',
+  getApplyFilterFn: (filterItem: GridFilterItem, column: GridColDef) => {
+    if (!filterItem.columnField || !filterItem.value || !filterItem.operatorValue) {
+      return null;
+    }
+    return (params: GridCellParams): boolean => {
+      return Number(params.value) >= Number(filterItem.value);
+    };
+  },
+  InputComponent: RatingInputValue,
+  InputComponentProps: { type: 'number' },
+}
+Note: If the column has a valueGetter, then params.value will be the resolved value.
+
+In this demo, you can see how to create a completely new operator for the Rating column.
+

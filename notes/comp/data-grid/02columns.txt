@@ -1,0 +1,210 @@
+The columns prop should keep the same reference between two renders. The columns are designed to be definitions, to never change once the component is mounted. Otherwise, you take the risk of losing the column width state (if resized). You can create the array outside of the render function or memoize it.
+
+By default, the columns have a width of 100px, minimum width of 50px. 
+
+Fluid width
+
+Column fluidity or responsiveness can be by achieved by setting the flex property in GridColDef.
+
+The flex property accepts a value between 0 and ∞. It works by dividing the remaining space in the grid among all flex columns in proportion to their flex value.
+
+For example, consider a grid with a total width of 500px that has three columns: the first with width: 200; the second with flex: 1; and third with flex: 0.5. The first column will be 200px wide, leaving 300px remaining. The column with flex: 1 is twice the size of flex: 0.5, which means that final sizes will be: 200px, 200px, 100px.
+
+To set a minimum width for a flex column set the minWidth property in GridColDef.
+
+Hiding
+
+Set the column definition attribute hide to true to hide the column.
+
+<DataGrid columns={[{ field: 'id', hide: true }]} />
+Resizing 
+
+To prevent the resizing of a column, set resizable: false
+to disable all columns resize, set the prop disableColumnResize={true}
+
+To capture changes in the width of a column there are two callbacks that are called:　
+
+onColumnResize: Called while a column is being resized.
+onColumnWidthChange: Called after the width of a column is changed, but not during resizing.
+
+Value setter
+
+The value setter is to be used when editing rows and it is the counterpart of the value getter. It allows to customize how the entered value is stored in the row. A common use case for it is when the data is a nested structure. Refer to the cell editing documentation to see an example using it.
+
+Render cell
+
+By default, the grid render the value as a string in the cell. It resolves the rendered output in the following order:
+
+renderCell() => ReactElement
+valueFormatter() => string
+valueGetter() => string
+row[field]
+The renderCell method of the column definitions is similar to valueFormatter. However, it trades to be able to only render in a cell in exchange for allowing to return a React node (instead of a string).
+
+Note: It is recommended to also set a valueFormatter providing a representation for the value to be used when exporting the data.
+
+Render edit cell
+
+The renderCell render function allows customizing the rendered in "view mode" only. For the "edit mode", set the renderEditCell function to customize the edit component. Check the editing page for more details about editing.
+
+Expand cell renderer
+
+By default, the grid cuts the content of a cell and renders an ellipsis if the content of the cell does not fit in the cell. As a workaround, you can create a cell renderer that will allow seeing the full content of the cell in the grid.
+
+
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import { DataGrid } from '@mui/x-data-grid';
+
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
+const GridCellExpand = React.memo(function GridCellExpand(props) {
+  const { width, value } = props;
+  const wrapper = React.useRef(null);
+  const cellDiv = React.useRef(null);
+  const cellValue = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showFullCell, setShowFullCell] = React.useState(false);
+  const [showPopper, setShowPopper] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    const isCurrentlyOverflown = isOverflown(cellValue.current);
+    setShowPopper(isCurrentlyOverflown);
+    setAnchorEl(cellDiv.current);
+    setShowFullCell(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowFullCell(false);
+  };
+
+  React.useEffect(() => {
+    if (!showFullCell) {
+      return undefined;
+    }
+
+    function handleKeyDown(nativeEvent) {
+      // IE11, Edge (prior to using Bink?) use 'Esc'
+      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+        setShowFullCell(false);
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setShowFullCell, showFullCell]);
+
+  return (
+    <Box
+      ref={wrapper}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      sx={{
+        alignItems: 'center',
+        lineHeight: '24px',
+        width: 1,
+        height: 1,
+        position: 'relative',
+        display: 'flex',
+      }}
+    >
+      <Box
+        ref={cellDiv}
+        sx={{
+          height: 1,
+          width,
+          display: 'block',
+          position: 'absolute',
+          top: 0,
+        }}
+      />
+      <Box
+        ref={cellValue}
+        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+      >
+        {value}
+      </Box>
+      {showPopper && (
+        <Popper
+          open={showFullCell && anchorEl !== null}
+          anchorEl={anchorEl}
+          style={{ width, marginLeft: -17 }}
+        >
+          <Paper
+            elevation={1}
+            style={{ minHeight: wrapper.current.offsetHeight - 3 }}
+          >
+            <Typography variant="body2" style={{ padding: 8 }}>
+              {value}
+            </Typography>
+          </Paper>
+        </Popper>
+      )}
+    </Box>
+  );
+});
+
+GridCellExpand.propTypes = {
+  value: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+};
+
+function renderCellExpand(params) {
+  return (
+    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+  );
+}
+
+renderCellExpand.propTypes = {
+  /**
+   * The column of the row that the current cell belongs to.
+   */
+  colDef: PropTypes.object.isRequired,
+  /**
+   * The cell value, but if the column has valueGetter, use getValue.
+   */
+  value: PropTypes.string.isRequired,
+};
+
+Converting types
+
+{
+  field: 'lastLogin',
+  type: 'dateTime',
+  valueGetter: ({ value }) => value && new Date(value),
+}
+
+Special properties
+
+To use most of the column types, you only need to define the type property in your column definition. However, some types require additional properties to be set to make them work correctly:
+
+If the column type is 'singleSelect', you also need to set the valueOptions property in the respective column definition. These values are options used for filtering and editing.
+
+If the column type is 'actions', you need to provide a getActions function that returns an array of actions available for each row (React elements). You can add the showInMenu prop on the returned React elements to signal the data grid to group these actions inside a row menu.
+
+🚧 Column groups
+⚠️ This feature isn't implemented yet. It's coming.
+
+👍 Upvote issue #195 if you want to see it land faster.
+
+Grouping columns allows you to have multiple levels of columns in your header and the ability, if needed, to 'open and close' column groups to show and hide additional columns.
+
+🚧 Column spanning
+⚠️ This feature isn't implemented yet. It's coming.
+
+👍 Upvote issue #192 if you want to see it land faster.
+
+Each cell takes up the width of one column. Column spanning allows to change this default behavior. It allows cells to span multiple columns. This is very close to the "column spanning" in an HTML <table>.

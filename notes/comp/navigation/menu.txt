@@ -1,0 +1,457 @@
+Menu
+Menus display a list of choices on temporary surfaces.
+
+A menu displays a list of choices on a temporary surface. It appears when the user interacts with a button, or other control.
+
+A basic menu opens over the anchor element by default (this option can be changed via props). When close to a screen edge, a basic menu vertically realigns to make sure that all menu items are completely visible.
+
+Choosing an option should immediately ideally commit the option and close the menu.
+
+Disambiguation: In contrast to simple menus, simple dialogs can present additional detail related to the options available for a list item or provide navigational or orthogonal actions related to the primary task. Although they can display the same content, simple menus are preferred over simple dialogs because simple menus are less disruptive to the user's current context.
+
+
+Icon menu
+In desktop viewport, padding is increased to give more space to the menu.
+
+Dense menu
+For the menu that has long list and long text, you can use the dense prop to reduce the padding and text size.
+
+Selected menu
+If used for item selection, when opened, simple menus places the initial focus on the selected menu item. The currently selected menu item is set using the selected prop (from ListItem). To use a selected menu item without impacting the initial focus, set the variant prop to "menu".
+
+
+When device is locked
+Show all notification content
+
+
+
+
+Positioned menu
+Because the Menu component uses the Popover component to position itself, you can use the same positioning props to position it. For instance, you can display the menu on top of the anchor:
+
+MenuList composition
+The Menu component uses the Popover component internally. However, you might want to use a different positioning strategy, or not blocking the scroll. For answering those needs, we expose a MenuList component that you can compose, with Popper in this example.
+
+The primary responsibility of the MenuList component is to handle the focus.
+
+
+Account menu
+Menu content can be mixed with other components like Avatar.
+
+
+Contact
+Profile
+
+M
+
+
+
+
+Customization
+Here is an example of customizing the component. You can learn more about this in the overrides documentation page.
+
+
+OPTIONS
+
+
+
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import Divider from '@mui/material/Divider';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+const StyledMenu = styled((props) => (
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: 180,
+    color:
+      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+    boxShadow:
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
+    },
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      '&:active': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity,
+        ),
+      },
+    },
+  },
+}));
+
+export default function CustomizedMenus() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="demo-customized-button"
+        aria-controls={open ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        variant="contained"
+        disableElevation
+        onClick={handleClick}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+        Options
+      </Button>
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose} disableRipple>
+          <EditIcon />
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <FileCopyIcon />
+          Duplicate
+        </MenuItem>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={handleClose} disableRipple>
+          <ArchiveIcon />
+          Archive
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <MoreHorizIcon />
+          More
+        </MenuItem>
+      </StyledMenu>
+    </div>
+  );
+}
+The MenuItem is a wrapper around ListItem with some additional styles. You can use the same list composition features with the MenuItem component:
+
+🎨 If you are looking for inspiration, you can check MUI Treasury's customization examples.
+
+Max height menu
+If the height of a menu prevents all menu items from being displayed, the menu can scroll internally.
+
+
+
+
+
+
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+const options = [
+  'None',
+  'Atria',
+  'Callisto',
+  'Dione',
+  'Ganymede',
+  'Hangouts Call',
+  'Luna',
+  'Oberon',
+  'Phobos',
+  'Pyxis',
+  'Sedna',
+  'Titania',
+  'Triton',
+  'Umbriel',
+];
+
+const ITEM_HEIGHT = 48;
+
+export default function LongMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls={open ? 'long-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        MenuListProps={{
+          'aria-labelledby': 'long-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: '20ch',
+          },
+        }}
+      >
+        {options.map((option) => (
+          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+            {option}
+          </MenuItem>
+        ))}
+      </Menu>
+    </div>
+  );
+}
+Limitations
+There is a flexbox bug that prevents text-overflow: ellipsis from working in a flexbox layout. You can use the Typography component with noWrap to workaround this issue:
+
+
+A short message
+A very long text that overflows
+A very long text that overflows
+
+
+
+import * as React from 'react';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Typography from '@mui/material/Typography';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+
+export default function TypographyMenu() {
+  return (
+    <Paper sx={{ width: 230 }}>
+      <MenuList>
+        <MenuItem>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">A short message</Typography>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <PriorityHighIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">A very long text that overflows</Typography>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <DraftsIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit" noWrap>
+            A very long text that overflows
+          </Typography>
+        </MenuItem>
+      </MenuList>
+    </Paper>
+  );
+}
+Shutterstock - 🥳Take advantage of Shutterstock's 1-month free trial and download 10 images on us! 🙌
+ad by Carbon
+Change transition
+Use a different transition.
+
+
+DASHBOARD
+
+
+
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+
+export default function FadeMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="fade-button"
+        aria-controls={open ? 'fade-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        Dashboard
+      </Button>
+      <Menu
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
+    </div>
+  );
+}
+Context menu
+Here is an example of a context menu. (Right click to open.)
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ipsum purus, bibendum sit amet vulputate eget, porta semper ligula. Donec bibendum vulputate erat, ac fringilla mi finibus nec. Donec ac dolor sed dolor porttitor blandit vel vel purus. Fusce vel malesuada ligula. Nam quis vehicula ante, eu finibus est. Proin ullamcorper fermentum orci, quis finibus massa. Nunc lobortis, massa ut rutrum ultrices, metus metus finibus ex, sit amet facilisis neque enim sed neque. Quisque accumsan metus vel maximus consequat. Suspendisse lacinia tellus a libero volutpat maximus.
+
+
+
+import * as React from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+
+export default function ContextMenu() {
+  const [contextMenu, setContextMenu] = React.useState(null);
+
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    setContextMenu(
+      contextMenu === null
+        ? {
+            mouseX: event.clientX - 2,
+            mouseY: event.clientY - 4,
+          }
+        : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
+          // Other native context menus might behave different.
+          // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+          null,
+    );
+  };
+
+  const handleClose = () => {
+    setContextMenu(null);
+  };
+
+  return (
+    <div onContextMenu={handleContextMenu} style={{ cursor: 'context-menu' }}>
+      <Typography>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ipsum purus,
+        bibendum sit amet vulputate eget, porta semper ligula. Donec bibendum
+        vulputate erat, ac fringilla mi finibus nec. Donec ac dolor sed dolor
+        porttitor blandit vel vel purus. Fusce vel malesuada ligula. Nam quis
+        vehicula ante, eu finibus est. Proin ullamcorper fermentum orci, quis finibus
+        massa. Nunc lobortis, massa ut rutrum ultrices, metus metus finibus ex, sit
+        amet facilisis neque enim sed neque. Quisque accumsan metus vel maximus
+        consequat. Suspendisse lacinia tellus a libero volutpat maximus.
+      </Typography>
+      <Menu
+        open={contextMenu !== null}
+        onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={
+          contextMenu !== null
+            ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+            : undefined
+        }
+      >
+        <MenuItem onClick={handleClose}>Copy</MenuItem>
+        <MenuItem onClick={handleClose}>Print</MenuItem>
+        <MenuItem onClick={handleClose}>Highlight</MenuItem>
+        <MenuItem onClick={handleClose}>Email</MenuItem>
+      </Menu>
+    </div>
+  );
+}
+Complementary projects
+For more advanced use cases you might be able to take advantage of:
+
+PopupState helper
+There is a 3rd party package material-ui-popup-state that takes care of menu state for you in most cases.
+
+DASHBOARD
+
+
+
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+
+export default function MenuPopupState() {
+  return (
+    <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <React.Fragment>
+          <Button variant="contained" {...bindTrigger(popupState)}>
+            Dashboard
+          </Button>
+          <Menu {...bindMenu(popupState)}>
+            <MenuItem onClick={popupState.close}>Profile</MenuItem>
+            <MenuItem onClick={popupState.close}>My account</MenuItem>
+            <MenuItem onClick={popupState.close}>Logout</MenuItem>
+          </Menu>
+        </React.Fragment>
+      )}
+    </PopupState>
+  );
+}
+Shutterstock - Download 1️⃣0️⃣ FREE images from Shutterstock’s world-class library with a free 1-month trial!🎉🎉🎉
+ad by Carbon
+API
+<ClickAwayListener />
+<Menu />
+<MenuItem />
+<MenuList />
+<Popover />
+<Popper />

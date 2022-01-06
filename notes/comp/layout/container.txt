@@ -1,0 +1,2 @@
+container - center your content horizontally
+While containers can be nested, most layouts do not require a nested container.

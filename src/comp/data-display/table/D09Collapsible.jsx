@@ -57,6 +57,7 @@ function Row(props) {
         <TableCell align="right">{row.carbs}</TableCell>
         <TableCell align="right">{row.protein}</TableCell>
       </TableRow>
+
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -121,13 +122,14 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>{"Dessert (100g serving)"}</TableCell>
+            <TableCell align="right">{"Calories"}</TableCell>
+            <TableCell align="right">{"Fat (g)"}</TableCell>
+            <TableCell align="right">{"Carbs (g)"}</TableCell>
+            <TableCell align="right">{"Protein (g)"}</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {rows.map(row => (
             <Row key={row.name} row={row} />

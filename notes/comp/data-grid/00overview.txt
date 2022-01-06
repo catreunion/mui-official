@@ -1,0 +1,37 @@
+$ npm install @mui/x-data-grid
+
+import { DataGrid } from '@mui/x-data-grid';
+
+Filtering and multi-filtering 
+Pagination
+Row & Cell editing
+Sorting and multi-sort 
+Selection
+Column virtualization and rows virtualization 
+Tree data 
+Resizable columns 
+100% customizable
+Server-side data
+Column hiding
+Column pinning
+Accessible
+Localization
+
+🚧 Upcoming features
+
+While development of the data grid component is moving fast, there are still many additional features that we plan to implement. Some of them:
+
+Headless (hooks only)
+Excel export 
+Range selection 
+Group, Pivot, Aggregation 
+You can find more details on, the feature comparison, our living quarterly roadmap as well as on the open GitHub issues.
+
+Resources
+Here are some resources you might be interested in to learn more about the grid:
+
+The storybook used for internal development
+The source on GitHub
+The Material Design specification specification
+The accessibility WAI-ARIA authoring practices
+The Sketch and Figma design assets

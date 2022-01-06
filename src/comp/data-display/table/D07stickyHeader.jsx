@@ -67,6 +67,7 @@ export default function StickyHeadTable() {
               ))}
             </TableRow>
           </TableHead>
+
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (

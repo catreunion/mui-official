@@ -1,50 +1,28 @@
 import React, { useState } from "react"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
-import Stack from "@mui/material/Stack"
 import MobileDatePicker from "@mui/lab/MobileDatePicker"
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker"
-import DatePicker from "@mui/lab/DatePicker"
 import TextField from "@mui/material/TextField"
+import Container from "@mui/material/Container"
 
 function D03responsive() {
-  const [value, setValue] = useState(new Date())
+  const [date, setDate] = useState(new Date())
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Stack spacing={3}>
+    // <Container sx={{ p: 1, mt: 3, ml: 2 }}>
+    <Container sx={{ p: 0, m: 2 }}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <MobileDatePicker
-          label="For mobile"
-          value={value}
-          onChange={newValue => {
-            setValue(newValue)
+          onChange={newDate => {
+            setDate(newDate)
           }}
           renderInput={params => <TextField {...params} />}
-        />
-
-        <DesktopDatePicker
-          label="For desktop"
-          value={value}
-          minDate={new Date("2017-01-01")}
-          onChange={newValue => {
-            setValue(newValue)
-          }}
-          renderInput={params => <TextField {...params} />}
-        />
-
-        <DatePicker
+          value={date}
+          label="Date"
           disableFuture
-          label="Responsive"
-          openTo="year"
-          views={["year", "month", "day"]}
-          value={value}
-          onChange={newValue => {
-            setValue(newValue)
-          }}
-          renderInput={params => <TextField {...params} />}
         />
-      </Stack>
-    </LocalizationProvider>
+      </LocalizationProvider>
+    </Container>
   )
 }
 

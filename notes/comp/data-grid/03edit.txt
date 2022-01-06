@@ -1,0 +1,258 @@
+Data Grid - Editing
+The data grid has built-in edit capabilities that you can customize to your needs.
+
+Start editing
+
+start the edit mode:
+
+A Enter keydown
+A Backspace or Delete keydown. It will also delete the value and stops the edit mode instantly.
+A keydown of any printable key, for instance a, E, 0, or $
+A double click on the cell
+A call to apiRef.current.setCellMode(id, field, 'edit').
+/**
+  * Set the cellMode of a cell.
+  * @param GridRowId
+  * @param string
+  * @param 'edit' | 'view'
+  */
+setCellMode: (id: GridRowId, field: string, mode: GridCellMode) => void;
+
+Stop editing
+
+stop the edit mode:
+
+A Escape keydown. It will also roll back changes done in the value of the cell.
+A Tab keydown. It will also save and goes to the next cell on the same row.
+A Enter keydown. It will also save and goes to the next cell on the same column.
+A mousedown outside the cell
+A call to apiRef.current.setCellMode(id, field, 'view').
+
+Control cell editability
+
+In addition to the editable flag on columns, control which cell is editable using the isCellEditable prop.
+
+In this demo, only the rows with an even Age value are editable. The editable cells have a green background for better visibility.
+
+
+
+
+Controlled editing
+
+The editRowsModel prop lets you control the editing state. You can handle the onEditRowsModelChange callback to control the GridEditRowsModel state.
+
+
+Saving nested structures
+
+If you are using a valueGetter to extract the value from a nested object, then a valueSetter also needs to be provided. The first one receives the row object and must return the value to be displayed in the cell. In the other side, the second one does the inverse, receiving the new value entered and returning the updated row.
+
+The following demo shows how these two functions can be used:
+
+
+
+
+Calling the valueSetter is the last step in the saving process. The validation will still be called with the values before they pass through the setter.
+
+Client-side validation
+
+To validate the value in the cells, first add a preProcessEditCellProps callback to the column definition of the field to validate. Once it is called, validate the value provided in params.props.value. Then, return a new object contaning params.props and also the error attribute set to true or false. If the error attribute is true, the value will never be committed.
+
+const columns: GridColDef[] = [
+  {
+    field: 'firstName',
+    preProcessEditCellProps: (params: GridEditCellPropsChangeParams) => {
+      const hasError = params.props.value.length < 3;
+      return { ...params.props, error: hasError };
+    },
+  },
+];
+Here is an example implementing an email validation:
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+import {
+  randomCreatedDate,
+  randomEmail,
+  randomTraderName,
+  randomUpdatedDate,
+} from '@mui/x-data-grid-generator';
+
+function validateEmail(email) {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+export default function ValidateRowModelControlGrid() {
+  return (
+    <Box
+      sx={{
+        height: 400,
+        width: 1,
+        '& .MuiDataGrid-cell--editing': {
+          bgcolor: 'rgb(255,215,115, 0.19)',
+          color: '#1a3e72',
+        },
+        '& .Mui-error': {
+          bgcolor: (theme) =>
+            `rgb(126,10,15, ${theme.palette.mode === 'dark' ? 0 : 0.1})`,
+          color: (theme) => (theme.palette.mode === 'dark' ? '#ff4343' : '#750f0f'),
+        },
+      }}
+    >
+      <DataGrid rows={rows} columns={columns} />
+    </Box>
+  );
+}
+
+const columns = [
+  { field: 'name', headerName: 'Name', width: 180, editable: true },
+  {
+    field: 'email',
+    headerName: 'Email',
+    width: 200,
+    editable: true,
+    preProcessEditCellProps: (params) => {
+      const isValid = validateEmail(params.props.value);
+      return { ...params.props, error: !isValid };
+    },
+  },
+  {
+    field: 'dateCreated',
+    headerName: 'Date Created',
+    type: 'date',
+    width: 180,
+    editable: true,
+  },
+  {
+    field: 'lastLogin',
+    headerName: 'Last Login',
+    type: 'dateTime',
+    width: 220,
+    editable: true,
+  },
+];
+
+const rows = [
+  {
+    id: 1,
+    name: randomTraderName(),
+    email: randomEmail(),
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: 2,
+    name: randomTraderName(),
+    email: randomEmail(),
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: 3,
+    name: randomTraderName(),
+    email: randomEmail(),
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: 4,
+    name: randomTraderName(),
+    email: randomEmail(),
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: 5,
+    name: randomTraderName(),
+    email: randomEmail(),
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+];
+Alternatively, you can use the GridEditRowsModel state mentioned in the Controlled editing section. However, one limitation of this approach is that it does not work with the singleSelect column type.
+
+Server-side validation
+
+Server-side validation works like client-side validation. The only difference is that when preProcessEditCellProps is called, a promise must be returned. Once the value is validated in the server, that promise should be resolved with a new object containing the error attribute set to true or false. The grid will wait for the promise to be resolved before exiting the edit mode.
+
+This demo shows how you can validate a username asynchronously and prevent the user from committing the value while validating. It's using DataGridPro but the same approach can be used with DataGrid.
+
+
+MUI Contributor
+Damien
+Olivier
+Danail
+Matheus
+You?
+Total Rows: 5
+
+
+
+
+Server-side persistence
+
+If you want to send the updated data to your server, you can use the onCellEditCommit which is fired just before committing the new cell value to the grid.
+
+You can then decide if you want to send the whole row or only the modified fields.
+
+
+
+Custom edit component
+
+To customize the edit component of a column, use the renderEditCell attribute available in the GridColDef.
+
+The demo lets you edit the ratings by double-clicking the cell.
+
+
+Places
+Rating
+Barcelona
+
+Rio de Janeiro
+
+London
+
+New York
+
+Rows per page:
+
+100
+
+1–4 of 4
+
+
+
+
+
+
+Row editing
+Row editing allows to edit all the cells of a row at once. It is based on the cell editing, thus most of the features are also supported
+
+
+Start editing
+
+If a cell is editable and has focus, any of the following interactions will start the edit mode of the corresponding row:
+
+A Enter keydown
+A double click on the cell
+A call to apiRef.current.setRowMode(id, 'edit').
+/**
+  * Sets the mode of a row.
+  * @param {GridRowId} id The id of the row.
+  * @param {GridRowMode} mode Can be: `"edit"`, `"view"`.
+  */
+setRowMode: (id: GridRowId, mode: GridRowMode) => void;
+
+Stop editing
+
+If a row is in edit mode and one of its cells is focused, any of the following interactions will stop the edit mode:
+
+A Escape keydown. It will also roll back changes done in the row.
+A Enter keydown. It will also save and goes to the cell at the next row at the same column.
+A mouse click outside the row
+A call to apiRef.current.setRowMode(id, 'view').
+
+Controlled editing
+
