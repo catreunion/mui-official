@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react"
-import { db } from "../firebase-config"
-import { collection, onSnapshot, addDoc } from "firebase/firestore"
+import { colorsRef } from "../firebase-config"
+import { onSnapshot, addDoc } from "firebase/firestore"
 import { Box, TextField, Button, Link } from "@mui/material"
 import Dot from "./Dot"
 
 function D01dots() {
-  const colorsRef = collection(db, "colors")
   const [colors, setColors] = useState([{ colorName: "loading...", colorValue: "loading...", id: "loading..." }])
   const [colorName, setColorName] = useState(null)
   const [nameEr, setNameEr] = useState(null)
   const [colorValue, setColorValue] = useState(null)
   const [valueEr, setValueEr] = useState(null)
+  const [downloadErr, setDownloadErr] = useState(null)
 
   useEffect(() => {
-    onSnapshot(colorsRef, snapshot => {
-      setColors(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-    })
-  }, [])
+    const getColors = async () => {
+      await onSnapshot(colorsRef, snapshot => {
+        console.log(snapshot)
+        if (snapshot.empty) {
+          setDownloadErr("No data")
+          console.log("No data")
+        } else {
+          setColors(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+          console.log("Colors downloaded")
+        }
+      })
+    }
+
+    getColors()
+  }, [downloadErr])
 
   const addColor = async () => {
     setNameEr(false)
