@@ -1,0 +1,776 @@
+Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:
+
+Modal windows
+Forms
+Cards
+Toolbars
+Feedback
+WAI-ARIA
+Bundle size
+Material Design
+Figma
+Adobe
+Sketch
+Basic button
+The Button comes with three variants: text (default), contained, and outlined.
+
+
+Text button
+Text buttons are typically used for less-pronounced actions, including those located: in dialogs, in cards. In cards, text buttons help maintain an emphasis on card content.
+
+
+Contained button
+Contained buttons are high-emphasis, distinguished by their use of elevation and fill. They contain actions that are primary to your app.
+
+Outlined button
+Outlined buttons are medium-emphasis buttons. They contain actions that are important but aren't the primary action in an app.
+
+Outlined buttons are also a lower emphasis alternative to contained buttons, or a higher emphasis alternative to text buttons.
+
+
+
+Handling clicks
+All components accept an onClick handler that is applied to the root DOM element.
+
+<Button
+  onClick={() => {
+    alert('clicked');
+  }}
+>
+  Click me
+</Button>
+Note that the documentation avoids mentioning native props (there are a lot) in the API section of the components.
+
+
+
+In addition to using the default button colors, you can add custom ones, or disable any you don't need. See the Adding new colors example for more info.
+
+Sizes
+
+Upload button
+
+UPLOAD
+
+
+
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+
+const Input = styled('input')({
+  display: 'none',
+});
+
+export default function UploadButtons() {
+  return (
+    <Stack direction="row" alignItems="center" spacing={2}>
+      <label htmlFor="contained-button-file">
+        <Input accept="image/*" id="contained-button-file" multiple type="file" />
+        <Button variant="contained" component="span">
+          Upload
+        </Button>
+      </label>
+      <label htmlFor="icon-button-file">
+        <Input accept="image/*" id="icon-button-file" type="file" />
+        <IconButton color="primary" aria-label="upload picture" component="span">
+          <PhotoCamera />
+        </IconButton>
+      </label>
+    </Stack>
+  );
+}
+Buttons with icons and label
+Sometimes you might want to have icons for certain buttons to enhance the UX of the application as we recognize logos more easily than plain text. For example, if you have a delete button you can label it with a dustbin icon.
+
+
+
+DELETE
+SEND
+
+
+
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+
+export default function IconLabelButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button variant="outlined" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+      <Button variant="contained" endIcon={<SendIcon />}>
+        Send
+      </Button>
+    </Stack>
+  );
+}
+Icon button
+Icon buttons are commonly found in app bars and toolbars.
+
+Icons are also appropriate for toggle buttons that allow a single choice to be selected or deselected, such as adding or removing a star to an item.
+
+
+
+
+
+
+
+
+
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
+export default function IconButtons() {
+  return (
+    <Stack direction="row" spacing={1}>
+      <IconButton aria-label="delete">
+        <DeleteIcon />
+      </IconButton>
+      <IconButton aria-label="delete" disabled color="primary">
+        <DeleteIcon />
+      </IconButton>
+      <IconButton color="secondary" aria-label="add an alarm">
+        <AlarmIcon />
+      </IconButton>
+      <IconButton color="primary" aria-label="add to shopping cart">
+        <AddShoppingCartIcon />
+      </IconButton>
+    </Stack>
+  );
+}
+Sizes
+For larger or smaller icon buttons, use the size prop.
+
+
+
+
+
+
+
+
+
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+export default function IconButtonSizes() {
+  return (
+    <Stack direction="row" alignItems="center" spacing={1}>
+      <IconButton aria-label="delete" size="small">
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+      <IconButton aria-label="delete" size="small">
+        <DeleteIcon fontSize="small" />
+      </IconButton>
+      <IconButton aria-label="delete" size="large">
+        <DeleteIcon />
+      </IconButton>
+      <IconButton aria-label="delete" size="large">
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+    </Stack>
+  );
+}
+Colors
+Use color prop to apply theme color palette to component.
+
+
+
+
+
+
+
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import Fingerprint from '@mui/icons-material/Fingerprint';
+
+export default function IconButtonColors() {
+  return (
+    <Stack direction="row" spacing={1}>
+      <IconButton aria-label="fingerprint" color="secondary">
+        <Fingerprint />
+      </IconButton>
+      <IconButton aria-label="fingerprint" color="success">
+        <Fingerprint />
+      </IconButton>
+    </Stack>
+  );
+}
+Customization
+Here are some examples of customizing the component. You can learn more about this in the overrides documentation page.
+
+
+CUSTOM CSS
+Bootstrap
+
+
+
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { purple } from '@mui/material/colors';
+
+const BootstrapButton = styled(Button)({
+  boxShadow: 'none',
+  textTransform: 'none',
+  fontSize: 16,
+  padding: '6px 12px',
+  border: '1px solid',
+  lineHeight: 1.5,
+  backgroundColor: '#0063cc',
+  borderColor: '#0063cc',
+  fontFamily: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(','),
+  '&:hover': {
+    backgroundColor: '#0069d9',
+    borderColor: '#0062cc',
+    boxShadow: 'none',
+  },
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#0062cc',
+    borderColor: '#005cbf',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  },
+});
+
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(purple[500]),
+  backgroundColor: purple[500],
+  '&:hover': {
+    backgroundColor: purple[700],
+  },
+}));
+
+export default function CustomizedButtons() {
+  return (
+    <Stack spacing={2} direction="row">
+      <ColorButton variant="contained">Custom CSS</ColorButton>
+      <BootstrapButton variant="contained" disableRipple>
+        Bootstrap
+      </BootstrapButton>
+    </Stack>
+  );
+}
+🎨 If you are looking for inspiration, you can check MUI Treasury's customization examples.
+
+Loading button
+The loading buttons can show loading state and disable interactions.
+
+
+
+SUBMIT
+LOADING...FETCH DATA
+
+SAVE
+
+
+
+import * as React from 'react';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+
+export default function LoadingButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <LoadingButton loading variant="outlined">
+        Submit
+      </LoadingButton>
+      <LoadingButton loading loadingIndicator="Loading..." variant="outlined">
+        Fetch data
+      </LoadingButton>
+      <LoadingButton
+        loading
+        loadingPosition="start"
+        startIcon={<SaveIcon />}
+        variant="outlined"
+      >
+        Save
+      </LoadingButton>
+    </Stack>
+  );
+}
+Toggle the loading switch to see the transition between the different states.
+
+
+
+Loading
+DISABLEDFETCH DATASEND
+
+SAVE
+
+
+
+import * as React from 'react';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import SaveIcon from '@mui/icons-material/Save';
+import SendIcon from '@mui/icons-material/Send';
+
+export default function LoadingButtonsTransition() {
+  const [loading, setLoading] = React.useState(false);
+  function handleClick() {
+    setLoading(true);
+  }
+
+  return (
+    <Box sx={{ '& > button': { m: 1 } }}>
+      <FormControlLabel
+        sx={{
+          display: 'block',
+        }}
+        control={
+          <Switch
+            checked={loading}
+            onChange={() => setLoading(!loading)}
+            name="loading"
+            color="primary"
+          />
+        }
+        label="Loading"
+      />
+      <LoadingButton
+        onClick={handleClick}
+        loading={loading}
+        variant="outlined"
+        disabled
+      >
+        disabled
+      </LoadingButton>
+      <LoadingButton
+        onClick={handleClick}
+        loading={loading}
+        loadingIndicator="Loading..."
+        variant="outlined"
+      >
+        Fetch data
+      </LoadingButton>
+      <LoadingButton
+        onClick={handleClick}
+        endIcon={<SendIcon />}
+        loading={loading}
+        loadingPosition="end"
+        variant="contained"
+      >
+        Send
+      </LoadingButton>
+      <LoadingButton
+        color="secondary"
+        onClick={handleClick}
+        loading={loading}
+        loadingPosition="start"
+        startIcon={<SaveIcon />}
+        variant="contained"
+      >
+        Save
+      </LoadingButton>
+    </Box>
+  );
+}
+Complex button
+The Text Buttons, Contained Buttons, Floating Action Buttons and Icon Buttons are built on top of the same component: the ButtonBase. You can take advantage of this lower-level component to build custom interactions.
+
+
+
+Breakfast
+
+Burgers
+
+Camera
+
+Third-party routing library
+One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server. The ButtonBase component provides the component prop to handle this use case. Here is a more detailed guide.
+
+Limitations
+Cursor not-allowed
+The ButtonBase component sets pointer-events: none; on disabled buttons, which prevents the appearance of a disabled cursor.
+
+If you wish to use not-allowed, you have two options:
+
+CSS only. You can remove the pointer-events style on the disabled state of the <button> element:
+.MuiButtonBase-root:disabled {
+  cursor: not-allowed;
+  pointer-events: auto;
+}
+However:
+
+You should add pointer-events: none; back when you need to display tooltips on disabled elements.
+The cursor won't change if you render something other than a button element, for instance, a link <a> element.
+DOM change. You can wrap the button:
+<span style={{ cursor: 'not-allowed' }}>
+  <Button component={Link} disabled>
+    disabled
+  </Button>
+</span>
+This has the advantage of supporting any element, for instance, a link <a> element.
+
+Unstyled
+The button also comes with an unstyled version. It's ideal for doing heavy customizations and minimizing bundle size.
+
+Unstyled component
+import ButtonUnstyled from '@mui/base/ButtonUnstyled';
+
+Button
+Disabled
+
+
+
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+import { styled } from '@mui/system';
+
+const blue = {
+  500: '#007FFF',
+  600: '#0072E5',
+  700: '#0059B2',
+};
+
+const CustomButtonRoot = styled('button')`
+  font-family: IBM Plex Sans, sans-serif;
+  font-weight: bold;
+  font-size: 0.875rem;
+  background-color: ${blue[500]};
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: white;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background-color: ${blue[600]};
+  }
+
+  &.${buttonUnstyledClasses.active} {
+    background-color: ${blue[700]};
+  }
+
+  &.${buttonUnstyledClasses.focusVisible} {
+    box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 5px rgba(0, 127, 255, 0.5);
+    outline: none;
+  }
+
+  &.${buttonUnstyledClasses.disabled} {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+function CustomButton(props) {
+  return <ButtonUnstyled {...props} component={CustomButtonRoot} />;
+}
+
+export default function UnstyledButtonsSimple() {
+  return (
+    <Stack spacing={2} direction="row">
+      <CustomButton>Button</CustomButton>
+      <CustomButton disabled>Disabled</CustomButton>
+    </Stack>
+  );
+}
+Customizing the root element
+By default, the ButtonUnstyled renders a native button element. You are free to override this by setting the component or components.Root prop. If a non-interactive element (such as a span) is provided this way, the ButtonUnstyled will take care of adding accessibility attributes.
+
+
+Button
+Disabled
+
+
+
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+import { styled } from '@mui/system';
+
+const blue = {
+  500: '#007FFF',
+  600: '#0072E5',
+  700: '#0059B2',
+};
+
+const CustomButtonRoot = styled('span')`
+  font-family: IBM Plex Sans, sans-serif;
+  font-weight: bold;
+  font-size: 0.875rem;
+  background-color: ${blue[500]};
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: white;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background-color: ${blue[600]};
+  }
+
+  &.${buttonUnstyledClasses.active} {
+    background-color: ${blue[700]};
+  }
+
+  &.${buttonUnstyledClasses.focusVisible} {
+    box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 5px rgba(0, 127, 255, 0.5);
+    outline: none;
+  }
+
+  &.${buttonUnstyledClasses.disabled} {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+function CustomButton(props) {
+  return <ButtonUnstyled {...props} component={CustomButtonRoot} />;
+}
+
+export default function UnstyledButtonsSpan() {
+  return (
+    <Stack spacing={2} direction="row">
+      <CustomButton>Button</CustomButton>
+      <CustomButton disabled>Disabled</CustomButton>
+    </Stack>
+  );
+}
+Compare the attributes on the span with the button from the previous demo.
+
+Complex customization
+You are not limited to using HTML elements for the button structure. SVG elements, even with complex structure, are equally acceptable.
+
+
+BUTTON
+
+
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+import { styled } from '@mui/system';
+
+const ButtonRoot = React.forwardRef(function ButtonRoot(props, ref) {
+  const { children, ...other } = props;
+
+  return (
+    <svg width="150" height="50" {...other} ref={ref}>
+      <polygon points="0,50 0,0 150,0 150,50" className="bg" />
+      <polygon points="0,50 0,0 150,0 150,50" className="borderEffect" />
+      <foreignObject x="0" y="0" width="150" height="50">
+        <div className="content">{children}</div>
+      </foreignObject>
+    </svg>
+  );
+});
+
+ButtonRoot.propTypes = {
+  children: PropTypes.node,
+};
+
+const CustomButtonRoot = styled(ButtonRoot)(
+  ({ theme }) => `
+  overflow: visible;
+  cursor: pointer;
+  --main-color: ${
+    theme.palette.mode === 'light' ? 'rgb(25,118,210)' : 'rgb(144,202,249)'
+  };
+  --hover-color: ${
+    theme.palette.mode === 'light'
+      ? 'rgba(25,118,210,0.04)'
+      : 'rgba(144,202,249,0.08)'
+  };
+  --active-color: ${
+    theme.palette.mode === 'light'
+      ? 'rgba(25,118,210,0.12)'
+      : 'rgba(144,202,249,0.24)'
+  };
+
+  & polygon {
+    fill: transparent;
+    transition: all 800ms ease;
+    pointer-events: none;
+  }
+  
+  & .bg {
+    stroke: var(--main-color);
+    stroke-width: 0.5;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.1));
+    fill: transparent;
+  }
+
+  & .borderEffect {
+    stroke: var(--main-color);
+    stroke-width: 2;
+    stroke-dasharray: 150 600;
+    stroke-dashoffset: 150;
+    fill: transparent;
+  }
+
+  &:hover,
+  &.${buttonUnstyledClasses.focusVisible} {
+    .borderEffect {
+      stroke-dashoffset: -600;
+    }
+
+    .bg {
+      fill: var(--hover-color);
+    }
+  }
+
+  &:focus,
+  &.${buttonUnstyledClasses.focusVisible} {
+    outline: none;
+  }
+
+  &.${buttonUnstyledClasses.active} { 
+    & .bg {
+      fill: var(--active-color);
+      transition: fill 300ms ease-out;
+    }
+  }
+
+  & foreignObject {
+    pointer-events: none;
+
+    & .content {
+      font-family: Helvetica, Inter, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 200;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--main-color);
+      text-transform: uppercase;
+    }
+
+    & svg {
+      margin: 0 5px;
+    }
+  }`,
+);
+
+const SvgButton = React.forwardRef(function SvgButton(props, ref) {
+  return <ButtonUnstyled {...props} component={CustomButtonRoot} ref={ref} />;
+});
+
+export default function UnstyledButtonCustom() {
+  return <SvgButton>Button</SvgButton>;
+}
+useButton hook
+import { useButton } from '@mui/base/ButtonUnstyled';
+If you need to use Button's functionality in another component, you can use the useButton hook. It returns props to be placed on a custom button element and fields representing the internal state of the button.
+
+The useButton hook requires the ref of the element it'll be used on. Additionally, you need to provide the component prop (unless you intend to use the plain button).
+
+
+Button
+Disabled
+
+
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import Stack from '@mui/material/Stack';
+import { useButton } from '@mui/base/ButtonUnstyled';
+import { styled } from '@mui/system';
+
+const CustomButtonRoot = styled('button')`
+  background-color: #007fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  transition: all 200ms ease;
+  cursor: pointer;
+  box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 0 rgba(0, 127, 255, 0);
+  border: none;
+
+  &:hover {
+    background-color: #0059b2;
+  }
+
+  &.active {
+    background-color: #004386;
+  }
+
+  &.focusVisible {
+    box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 5px rgba(0, 127, 255, 0.5);
+    outline: none;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: 0 0 0 0 rgba(0, 127, 255, 0);
+  }
+`;
+
+const CustomButton = React.forwardRef(function CustomButton(props, ref) {
+  const { children } = props;
+  const { active, disabled, focusVisible, getRootProps } = useButton({
+    ...props,
+    ref,
+    component: CustomButtonRoot,
+  });
+
+  const classes = {
+    active,
+    disabled,
+    focusVisible,
+  };
+
+  return (
+    <CustomButtonRoot {...getRootProps()} className={clsx(classes)}>
+      {children}
+    </CustomButtonRoot>
+  );
+});
+
+CustomButton.propTypes = {
+  children: PropTypes.node,
+};
+
+export default function UseButton() {
+  return (
+    <Stack spacing={2} direction="row">
+      <CustomButton onClick={() => console.log('click!')}>Button</CustomButton>
+      <CustomButton disabled>Disabled</CustomButton>
+    </Stack>
+  );
+}
+API
+<Button />
+<ButtonBase />
+<ButtonUnstyled />
+<IconButton />
+<LoadingButton />
