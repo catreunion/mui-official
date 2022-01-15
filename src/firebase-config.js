@@ -3,12 +3,12 @@ import { getFirestore, collection } from "firebase/firestore"
 import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCXa5xKWd9fbyqbrYv-_W9QdFzmD1-8dOI",
-  authDomain: "pilot-aa630.firebaseapp.com",
-  projectId: "pilot-aa630",
-  storageBucket: "pilot-aa630.appspot.com",
-  messagingSenderId: "256167151177",
-  appId: "1:256167151177:web:162b3abf2e6c92aa472198"
+  apiKey: "AIzaSyB7ZBbLLgc7CAg-NKHxF-8Y0NXZATKJrGs",
+  authDomain: "kumar-38d7b.firebaseapp.com",
+  projectId: "kumar-38d7b",
+  storageBucket: "kumar-38d7b.appspot.com",
+  messagingSenderId: "651517477302",
+  appId: "1:651517477302:web:db1c3645347de2780a8117"
 }
 
 const app = initializeApp(firebaseConfig)

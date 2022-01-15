@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react"
-import { colorsRef } from "../firebase-config"
-import { onSnapshot, addDoc } from "firebase/firestore"
-import { Box, TextField, Button, Link } from "@mui/material"
+import { db, colorsRef } from "../firebase-config"
+import { addDoc, doc, setDoc, deleteDoc, onSnapshot } from "firebase/firestore"
+import { Box, TextField, Button, IconButton } from "@mui/material"
 import Dot from "./Dot"
+
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 
 function D01dots() {
   const [colors, setColors] = useState([{ colorName: "loading...", colorValue: "loading...", id: "loading..." }])
+
   const [colorName, setColorName] = useState(null)
-  const [nameEr, setNameEr] = useState(null)
   const [colorValue, setColorValue] = useState(null)
+  const [nameEr, setNameEr] = useState(null)
   const [valueEr, setValueEr] = useState(null)
   const [downloadErr, setDownloadErr] = useState(null)
 
   useEffect(() => {
     const getColors = async () => {
       await onSnapshot(colorsRef, snapshot => {
-        console.log(snapshot)
         if (snapshot.empty) {
           setDownloadErr("No data")
           console.log("No data")
@@ -25,15 +28,12 @@ function D01dots() {
         }
       })
     }
-
     getColors()
   }, [downloadErr])
 
   const addColor = async () => {
     setNameEr(false)
     setValueEr(false)
-    // const docRef = doc(db, "colors", "test2")
-    // await setDoc(docRef, payload)
 
     if (colorName === null) {
       setNameEr(true)
@@ -42,11 +42,23 @@ function D01dots() {
       setValueEr(true)
     }
     if (colorName && colorValue) {
-      await addDoc(colorsRef, { colorName, colorValue })
+      const newColor = await addDoc(colorsRef, { colorName, colorValue })
+      console.log("The ID of the new color is: ", newColor.id)
     }
   }
 
-  const editColor = () => {}
+  const editColor = async id => {
+    console.log("The ID of the color selected is: ", id)
+    const name = prompt("Edit color name: ")
+    const value = prompt("Edit color value: ")
+    const colorRef = doc(db, "colors", id)
+    await setDoc(colorRef, { colorName: name, colorValue: value })
+  }
+
+  const deleteColor = async id => {
+    const colorRef = doc(db, "colors", id)
+    await deleteDoc(colorRef)
+  }
 
   return (
     <>
@@ -87,15 +99,24 @@ function D01dots() {
 
       {colors.map(color => (
         <Box sx={{ m: 2 }} color={color.colorValue} key={color.id}>
-          <Link
+          <IconButton
             onClick={() => {
               editColor(color.id)
             }}
-            sx={{ m: 2 }}
-            href="#"
+            aria-label="edit color"
           >
-            edit
-          </Link>
+            <EditIcon />
+          </IconButton>
+
+          <IconButton
+            onClick={() => {
+              deleteColor(color.id)
+            }}
+            aria-label="delete color"
+          >
+            <DeleteForeverIcon />
+          </IconButton>
+
           <Dot color={color.colorValue} />
           {color.colorName}
         </Box>

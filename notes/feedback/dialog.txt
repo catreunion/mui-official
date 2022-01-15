@@ -1,0 +1,379 @@
+https://mui.com/components/dialogs/
+
+Dialog
+Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.
+figma
+
+A Dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision. Dialogs disable all app functionality when they appear, and remain on screen until confirmed, dismissed, or a required action has been taken.
+
+Dialogs are purposefully interruptive, so they should be used sparingly.
+
+Basic dialog
+Simple dialogs can provide additional details or actions about a list item. For example, they can display avatars, icons, clarifying subtext, or orthogonal actions (such as adding an account).
+
+Touch mechanics:
+
+Choosing an option immediately commits the option and closes the menu
+Touching outside of the dialog, or pressing Back, cancels the action and closes the dialog
+Selected: user02@gmail.com
+
+
+Alerts
+Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.
+
+Most alerts don't need titles. They summarize a decision in a sentence or two by either:
+
+Asking a question (e.g. "Delete this conversation?")
+Making a statement related to the action buttons
+Use title bar alerts only for high-risk situations, such as the potential loss of connectivity. Users should be able to understand the choices based on the title and button text alone.
+
+If a title is required:
+
+Use a clear question or statement with an explanation in the content area, such as "Erase USB storage?".
+Avoid apologies, ambiguity, or questions, such as "Warning!" or "Are you sure?"
+
+
+
+Transitions
+You can also swap out the transition, the next example uses Slide.
+
+
+Form dialogs
+Form dialogs allow users to fill out form fields within a dialog. For example, if your site prompts for potential subscribers to fill in their email address, they can fill out the email field and touch 'Submit'.
+
+Customization
+Here is an example of customizing the component. You can learn more about this in the overrides documentation page.
+
+The dialog has a close button added to aid usability.
+
+
+
+Optional sizes
+You can set a dialog maximum width by using the maxWidth enumerable in combination with the fullWidth boolean. When the fullWidth prop is true, the dialog will adapt based on the maxWidth value.
+
+
+Responsive full-screen
+You may make a dialog responsively full screen using useMediaQuery.
+
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+function MyComponent() {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  return <Dialog fullScreen={fullScreen} />;
+}
+
+
+Confirmation dialogs
+Confirmation dialogs require users to explicitly confirm their choice before an option is committed. For example, users can listen to multiple ringtones but only make a final selection upon touching "OK".
+
+Touching "Cancel" in a confirmation dialog, or pressing Back, cancels the action, discards any changes, and closes the dialog.
+
+
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Dialog from '@mui/material/Dialog';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const options = [
+  'None',
+  'Atria',
+  'Callisto',
+  'Dione',
+  'Ganymede',
+  'Hangouts Call',
+  'Luna',
+  'Oberon',
+  'Phobos',
+  'Pyxis',
+  'Sedna',
+  'Titania',
+  'Triton',
+  'Umbriel',
+];
+
+function ConfirmationDialogRaw(props) {
+  const { onClose, value: valueProp, open, ...other } = props;
+  const [value, setValue] = React.useState(valueProp);
+  const radioGroupRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!open) {
+      setValue(valueProp);
+    }
+  }, [valueProp, open]);
+
+  const handleEntering = () => {
+    if (radioGroupRef.current != null) {
+      radioGroupRef.current.focus();
+    }
+  };
+
+  const handleCancel = () => {
+    onClose();
+  };
+
+  const handleOk = () => {
+    onClose(value);
+  };
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <Dialog
+      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+      maxWidth="xs"
+      TransitionProps={{ onEntering: handleEntering }}
+      open={open}
+      {...other}
+    >
+      <DialogTitle>Phone Ringtone</DialogTitle>
+      <DialogContent dividers>
+        <RadioGroup
+          ref={radioGroupRef}
+          aria-label="ringtone"
+          name="ringtone"
+          value={value}
+          onChange={handleChange}
+        >
+          {options.map((option) => (
+            <FormControlLabel
+              value={option}
+              key={option}
+              control={<Radio />}
+              label={option}
+            />
+          ))}
+        </RadioGroup>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button onClick={handleOk}>Ok</Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+ConfirmationDialogRaw.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
+};
+
+export default function ConfirmationDialog() {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState('Dione');
+
+  const handleClickListItem = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (newValue) => {
+    setOpen(false);
+
+    if (newValue) {
+      setValue(newValue);
+    }
+  };
+
+  return (
+    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <List component="div" role="group">
+        <ListItem button divider disabled>
+          <ListItemText primary="Interruptions" />
+        </ListItem>
+        <ListItem
+          button
+          divider
+          aria-haspopup="true"
+          aria-controls="ringtone-menu"
+          aria-label="phone ringtone"
+          onClick={handleClickListItem}
+        >
+          <ListItemText primary="Phone ringtone" secondary={value} />
+        </ListItem>
+        <ListItem button divider disabled>
+          <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+        </ListItem>
+        <ConfirmationDialogRaw
+          id="ringtone-menu"
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          value={value}
+        />
+      </List>
+    </Box>
+  );
+}
+Draggable dialog
+You can create a draggable dialog by using react-draggable. To do so, you can pass the imported Draggable component as the PaperComponent of the Dialog component. This will make the entire dialog draggable.
+
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Paper from '@mui/material/Paper';
+import Draggable from 'react-draggable';
+
+function PaperComponent(props) {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
+    </Draggable>
+  );
+}
+
+export default function DraggableDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open draggable dialog
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperComponent={PaperComponent}
+        aria-labelledby="draggable-dialog-title"
+      >
+        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+          Subscribe
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We
+            will send updates occasionally.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+Scrolling long content
+When dialogs become too long for the user's viewport or device, they scroll.
+
+scroll=paper the content of the dialog scrolls within the paper element.
+scroll=body the content of the dialog scrolls within the body element.
+Try the demo below to see what we mean:
+
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+export default function ScrollDialog() {
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState('paper');
+
+  const handleClickOpen = (scrollType) => () => {
+    setOpen(true);
+    setScroll(scrollType);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
+
+  return (
+    <div>
+      <Button onClick={handleClickOpen('paper')}>scroll=paper</Button>
+      <Button onClick={handleClickOpen('body')}>scroll=body</Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+      >
+        <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'}>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+            {[...new Array(50)]
+              .map(
+                () => `Cras mattis consectetur purus sit amet fermentum.
+Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+              )
+              .join('\n')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+Performance
+Follow the Modal performance section.
+
+Limitations
+Follow the Modal limitations section.
+
+Accessibility
+Follow the Modal accessibility section.
+
+API
+<Dialog />
+<DialogActions />
+<DialogContent />
+<DialogContentText />
+<DialogTitle />
+<Slide />

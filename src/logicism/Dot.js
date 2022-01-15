@@ -2,8 +2,8 @@ import React from "react"
 
 function Dot({ color }) {
   const style = {
-    height: 25,
     width: 25,
+    height: 25,
     margin: "0px 10px",
     backgroundColor: color,
     borderRadius: "50%",
