@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"
-import { db, colorsRef } from "../firebase-config"
-import { addDoc, doc, setDoc, deleteDoc, onSnapshot } from "firebase/firestore"
+import { colorsRef } from "../firebase-config"
+import { addDoc, onSnapshot } from "firebase/firestore"
 import { Box, TextField, Button, IconButton } from "@mui/material"
 // import Dot from "./Dot"
+import { editColor, deleteColor, qDeleteColor } from "./utils"
 
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
@@ -49,19 +50,6 @@ function D01dots() {
     }
   }
 
-  const editColor = async id => {
-    console.log("The ID of the color selected is: ", id)
-    const name = prompt("Edit color name: ")
-    const value = prompt("Edit color value: ")
-    const colorRef = doc(db, "colors", id)
-    await setDoc(colorRef, { colorName: name, colorValue: value })
-  }
-
-  const deleteColor = async id => {
-    const colorRef = doc(db, "colors", id)
-    await deleteDoc(colorRef)
-  }
-
   return (
     <>
       <Box
@@ -96,6 +84,10 @@ function D01dots() {
 
         <Button onClick={addColor} variant="contained">
           Add Color
+        </Button>
+
+        <Button onClick={qDeleteColor} variant="contained">
+          Query delete Color
         </Button>
       </Box>
 
