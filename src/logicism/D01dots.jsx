@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { db, colorsRef } from "../firebase-config"
 import { addDoc, doc, setDoc, deleteDoc, onSnapshot } from "firebase/firestore"
 import { Box, TextField, Button, IconButton } from "@mui/material"
-import Dot from "./Dot"
+// import Dot from "./Dot"
 
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
@@ -117,7 +117,7 @@ function D01dots() {
             <DeleteForeverIcon />
           </IconButton>
 
-          <Dot color={color.colorValue} />
+          <Box sx={{ width: 25, height: 25, backgroundColor: color.colorValue, borderRadius: "50%", display: "inline-block", mx: 1 }} color={color.colorValue} />
           {color.colorName}
         </Box>
       ))}
@@ -132,3 +132,19 @@ export default D01dots
 // blue #00f
 // pink #f0f
 // black #000
+
+// import React from "react"
+
+// function Dot({ color }) {
+//   const style = {
+//     width: 25,
+//     height: 25,
+//     backgroundColor: color,
+//     borderRadius: "50%",
+//     display: "inline-block",
+//     margin: "0px 10px"
+//   }
+//   return <span style={style}></span>
+// }
+
+// export default Dot
