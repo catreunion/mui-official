@@ -8,28 +8,30 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 
 function D01dots() {
-  const [colors, setColors] = useState([{ colorName: "loading...", colorValue: "loading...", id: "loading..." }])
+  const [colors, setColors] = useState([{ colorName: "loading...", id: "loading..." }])
 
   const [colorName, setColorName] = useState(null)
   const [colorValue, setColorValue] = useState(null)
   const [nameEr, setNameEr] = useState(null)
   const [valueEr, setValueEr] = useState(null)
-  const [downloadErr, setDownloadErr] = useState(null)
+  // const [downloadErr, setDownloadErr] = useState(null)
 
   useEffect(() => {
     const getColors = async () => {
-      await onSnapshot(colorsRef, snapshot => {
+      const unsub = await onSnapshot(colorsRef, snapshot => {
         if (snapshot.empty) {
-          setDownloadErr("No data")
+          // setDownloadErr("No data")
           console.log("No data")
         } else {
           setColors(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
           console.log("Colors downloaded")
+          // console.log(downloadErr)
         }
       })
+      return unsub
     }
     getColors()
-  }, [downloadErr])
+  }, [])
 
   const addColor = async () => {
     setNameEr(false)
