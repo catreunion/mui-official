@@ -1,18 +1,18 @@
 import React from "react"
 // import Layout from "./layout/Layout"
-// import Columns from "./columns/Columns"
+import Columns from "./columns/Columns"
 // import Rows from "./rows/Rows"
 // import Edit from "./edit/Edit"
-import Filter from "./filter/Filter"
+// import Filter from "./filter/Filter"
 
 function DataGrid() {
   return (
     <>
       {/* <Layout /> */}
-      {/* <Columns /> */}
+      <Columns />
       {/* <Rows /> */}
       {/* <Edit /> */}
-      <Filter />
+      {/* <Filter /> */}
     </>
   )
 }

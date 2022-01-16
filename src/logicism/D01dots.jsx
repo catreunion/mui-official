@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { colorsRef } from "../firebase-config"
-import { addDoc, onSnapshot } from "firebase/firestore"
+import { onSnapshot, addDoc } from "firebase/firestore"
+import { editColor, deleteColor, qDeleteColor } from "./utilities"
 import { Box, TextField, Button, IconButton } from "@mui/material"
 // import Dot from "./Dot"
-import { editColor, deleteColor, qDeleteColor } from "./utils"
-
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 
 function D01dots() {
   const [colors, setColors] = useState([{ colorName: "loading...", id: "loading..." }])
-
   const [colorName, setColorName] = useState(null)
   const [colorValue, setColorValue] = useState(null)
   const [nameEr, setNameEr] = useState(null)
@@ -111,7 +109,7 @@ function D01dots() {
             <DeleteForeverIcon />
           </IconButton>
 
-          <Box sx={{ width: 25, height: 25, backgroundColor: color.colorValue, borderRadius: "50%", display: "inline-block", mx: 1 }} color={color.colorValue} />
+          <Box sx={{ width: 25, height: 25, backgroundColor: color.colorValue, borderRadius: "50%", display: "inline-block", mx: 1 }} />
           {color.colorName}
         </Box>
       ))}

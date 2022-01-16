@@ -10,7 +10,6 @@ import React from "react"
 // import DataGrid from "./comp/data-grid/DataGrid"
 // import FM from "./framer-motion/FM"
 // import Navigation from "./navigation/Navigation"
-// import Logicism from "./logicism/Logicism"
 import Logicism from "./logicism/Logicism"
 // import Feedback from "./comp/feedback/Feedback"
 

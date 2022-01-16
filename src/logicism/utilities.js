@@ -1,18 +1,8 @@
-import { setDoc, doc, deleteDoc, query, where, getDocs } from "firebase/firestore"
 import { db, colorsRef } from "../firebase-config"
-
-// export const handleNew = async () => {
-//   const name = prompt("Enter color name")
-//   const value = prompt("Enter color value")
-
-//   const collectionRef = collection(db, "colors")
-//   const payload = { name, value }
-//   const docRef = await addDoc(collectionRef, payload)
-//   console.log("The new ID is: " + docRef.id)
-// }
+import { doc, setDoc, deleteDoc, query, where, getDocs } from "firebase/firestore"
 
 const editColor = async id => {
-  console.log("The ID of the color selected is: ", id)
+  console.log("The ID of the selected color is: ", id)
   const name = prompt("Edit color name: ")
   const value = prompt("Edit color value: ")
   const colorRef = doc(db, "colors", id)
@@ -25,7 +15,7 @@ const deleteColor = async id => {
 }
 
 const qDeleteColor = async () => {
-  const name = prompt("Edit color name: ")
+  const name = prompt("Which color you want to delete? ")
   const q = query(colorsRef, where("colorName", "==", name))
   const snapshot = await getDocs(q)
 
